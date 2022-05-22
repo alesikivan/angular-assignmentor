@@ -1,0 +1,120 @@
+<div class="preview-blocks" *ngIf="preloader; else journalBlock">
+  <preview-block height="90px" width="30%"></preview-block>
+  <preview-block height="90px"></preview-block>
+  <preview-block height="90px"></preview-block>
+</div>
+
+<ng-template #journalBlock>
+  <button
+  [routerLink]="['/admin', 'teachers', 'index']" 
+  type="button" 
+  class="btn input-group-text back-button blue-button cancel-button">Вернуться к списку</button>
+
+  <br><br>
+
+  <form [formGroup]="form" autocomplete="off">
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+            <span class="input-group-text sector">ФИО преподаватля:</span>
+        </div>
+        <input formControlName="name" value="" type="text" class="form-control grade-book-hours" placeholder="ФИО">
+    </div>
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+            <label class="input-group-text sector">Кафедра</label>
+        </div>
+        <select 
+          [ngClass]="{'form-select': true, 'is-invalid': form.get('department')?.invalid && (form.get('department')?.dirty || form.get('department')?.touched)}"
+          formControlName="department">
+          <option value="Выбрать кафедру..." disabled>Выбрать кафедру...</option>
+          <option
+            *ngFor="let item of dataHepler?.department" 
+            value={{item.id}} 
+            selected="form.get('department')?.value == item.id">{{item.title}}</option>
+        </select>
+        <div class="invalid-feedback">
+          Проверьте выбранное поле
+        </div>
+    </div>
+    <div class="input-group mb-3">
+      <div class="input-group-prepend">
+          <label class="input-group-text sector">Учетная степень</label>
+      </div>
+      <select 
+        [ngClass]="{'form-select': true, 'is-invalid': form.get('academicDegree')?.invalid && (form.get('academicDegree')?.dirty || form.get('academicDegree')?.touched)}"
+        aria-label="Default select example"
+        formControlName="academicDegree">
+        <option value="Выбрать учетную степень..." disabled>Выбрать учетную степень...</option>
+        <option
+          *ngFor="let item of dataHepler?.academicDegree" 
+          value={{item.id}} 
+          selected="form.get('academicDegree')?.value == item.id">{{item.title}}</option>
+      </select>
+      <div class="invalid-feedback">
+        Проверьте выбранное поле
+      </div>
+    </div>
+
+    <div class="input-group mb-3">
+      <div class="input-group-prepend">
+          <label class="input-group-text sector">Учетное звание</label>
+      </div>
+      <select 
+        [ngClass]="{'form-select': true, 'is-invalid': form.get('academicTitle')?.invalid && (form.get('academicTitle')?.dirty || form.get('academicTitle')?.touched)}"
+        aria-label="Default select example"
+        formControlName="academicTitle">
+        <option value="Выбрать учетное звание..." disabled>Выбрать учетное звание...</option>
+        <option
+          *ngFor="let item of dataHepler?.academicTitle" 
+          value={{item.id}} 
+          selected="form.get('academicTitle')?.value == item.id">{{item.title}}</option>
+      </select>
+      <div class="invalid-feedback">
+          Проверьте выбранное поле
+      </div>
+    </div>
+    <div class="input-group mb-3">
+      <div class="input-group-prepend">
+          <label class="input-group-text sector">Выбрать позицию</label>
+      </div>
+      <select 
+        [ngClass]="{'form-select': true, 'is-invalid': form.get('teacherPost')?.invalid && (form.get('teacherPost')?.dirty || form.get('teacherPost')?.touched)}"
+        aria-label="Default select example"
+        formControlName="teacherPost">
+        <option value="Выбрать позицию..." disabled>Выбрать позицию...</option>
+        <option
+          *ngFor="let item of dataHepler?.teacherPosts" 
+          value={{item.id}} 
+          selected="form.get('teacherPost')?.value == item.id">{{item.title}}</option>
+      </select>
+      <div class="invalid-feedback">
+          Проверьте выбранное поле
+      </div>
+    </div>
+    <div class="input-group mb-3 special">
+      <div class="input-group-prepend">
+          <span style="height: 100%;" class="input-group-text sector">Начало работы:</span>
+      </div>
+      <input formControlName="experience" value="" type="text" class="form-control grade-book-hours" placeholder="Начало работы">
+    </div>
+    <br>
+    <button 
+      class="green-button" 
+      type = "submit"
+      [class.disabled-button]="form.invalid || blockSubmitButton" 
+      (click)="save()" 
+      [disabled]="form.invalid || blockSubmitButton">
+      {{this.isCreateMode ? 'Создать новую запись' : 'Сохрнанить изменения'}}</button>
+
+      <button 
+        [ngStyle]="{'margin-left.px': '10'}"
+        *ngIf="!this.isCreateMode"
+        class="red-button" 
+        type = "submit"
+        [disabled]="blockSubmitButton"
+        [class.disabled-button]="blockSubmitButton" 
+        (click)="removeRecord()">
+        Удалить запись  
+      </button>
+  </form>
+</ng-template>

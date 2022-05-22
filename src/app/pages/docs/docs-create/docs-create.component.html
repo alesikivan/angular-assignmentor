@@ -1,0 +1,44 @@
+<form [formGroup]="form" autocomplete="off">
+  <div class="input-group mb-3">
+      <div class="input-group-prepend">
+          <span class="input-group-text sector">Заголовок:</span>
+      </div>
+      <input formControlName="document_header" value="" type="text" class="form-control grade-book-hours" placeholder="Заголовок">
+  </div>
+  <div class="input-group mb-3">
+      <div class="input-group-prepend">
+          <label class="input-group-text sector">Преподаватель</label>
+      </div>
+      <select 
+        [ngClass]="{'form-select': true, 'is-invalid': form.get('teacher_id')?.invalid && (form.get('teacher_id')?.dirty || form.get('teacher_id')?.touched)}"
+        formControlName="teacher_id">
+        <option value="Выбрать..." disabled>Выбрать преподавателя...</option>
+        <option
+          *ngFor="let item of dataHepler?.teachers" 
+          value={{item.id}} 
+          selected="form.get('teacher_id')?.value == item.id">{{ item.full_name }}</option>
+      </select>
+      <div class="invalid-feedback">Проверьте выбранное поле</div>
+  </div>
+  <div class="input-group mb-3">
+    <div class="input-group-prepend">
+        <label class="input-group-text sector">Уровень отчета</label>
+    </div>
+    <select 
+      [ngClass]="{'form-select': true, 'is-invalid': form.get('docsType')?.invalid && (form.get('docsType')?.dirty || form.get('docsType')?.touched)}"
+      formControlName="docsType">
+      <option value="educational">Воспитательная и идеологическая деятельность</option>
+      <option value="scientific">Научно-исследовательская деятельность</option>
+      <option value="methodical">Учебно-методическая деятельность</option>
+    </select>
+    <div class="invalid-feedback">Проверьте выбранное поле</div>
+  </div>
+  <br>
+  <button 
+    class="green-button" 
+    type = "submit"
+    [class.disabled-button]="form.invalid || blockSubmitButton" 
+    (click)="save()" 
+    [disabled]="form.invalid || blockSubmitButton">
+    {{this.isCreateMode ? 'Создать отчет' : 'Сохрнанить изменения'}}</button>
+</form>

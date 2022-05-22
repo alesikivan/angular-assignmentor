@@ -1,0 +1,41 @@
+<div class="container container-special scroll-x-container">
+  <p-table
+    [value]="list"
+    [paginator]="true"
+    [rows]="10"
+    [showCurrentPageReport]="true"
+    responsiveLayout="scroll"
+    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+    [rowsPerPageOptions]="[10,25,50]">
+    <ng-template pTemplate="header">
+        <tr>
+            <th>Действия</th>
+            <th>Имя</th>
+            <th>Email</th>
+            <th>Телефон</th>
+            <th>Дата</th>
+            <th>Активация</th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-user>
+        <tr [ngClass]="{'inActive': user.isActive == false}">
+              <td>
+                <a pButton pRipple type="button" [routerLink]="['/admin', 'user' , 'view', user.id]" icon="pi pi-eye"
+                    class="p-button-rounded"></a>
+                <a pButton pRipple type="button" style="margin-left: 5px;" [routerLink]="['/admin', 'user' , 'update', user.id]" icon="pi pi-user-edit"
+                    class="p-button-rounded"></a>
+                <a pButton pRipple type="button" (click)="remove(user.id)" style="margin-left: 5px;"
+                    icon="pi pi-trash" class="p-button-rounded"></a>
+            </td>
+            <td>{{user.name}}</td>
+            <td>{{user.email}}</td>
+            <td>{{user.mobile}}</td>
+            <td>{{user.date | date:'dd.MM.yyyy'}}</td>
+            <td>{{user.isActive}}</td>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="paginatorleft">
+        <a [routerLink]="['/admin', 'user', 'create']" class="btn btn-primary">Добавить</a>
+    </ng-template>
+  </p-table>
+</div>

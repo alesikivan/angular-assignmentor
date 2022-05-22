@@ -1,0 +1,46 @@
+<div class="preview-blocks" *ngIf="preloader; else journalBlock">
+  <preview-block height="90px" width="30%"></preview-block>
+  <preview-block height="90px"></preview-block>
+  <preview-block height="90px"></preview-block>
+</div>
+
+<ng-template #journalBlock>
+  <div class="card bg-light mb-3" style="max-width: 18rem;">
+      <div class="card-header grade-book-title">{{journal.title}}</div>
+      <div class="card-body">
+          <p class="card-text grade-book-teacher"><span>Преподаватель: </span>{{journal.teacher.name}}</p>
+      </div>
+  </div>
+  <button class="green-button" [routerLink]="['/', 'journals', 'create', journal.id]">Создать новую запись</button>
+  <br><br>
+  <table class="table table-bordered grade-book-table">
+      <thead>
+          <tr class="main-row">
+              <th scope="col">№</th>
+              <th scope="col">Дата</th>
+              <th scope="col">Время</th>
+              <th scope="col">Группа</th>
+              <th scope="col">Тема</th>
+              <th scope="col">Тип занятия</th>
+          </tr>
+      </thead>
+      <tbody>
+          <tr 
+          [routerLink]="['/', 'journals', 'update', journal.id, 'record', rec.id]"
+            class="grade-book-recording" 
+            *ngFor="let rec of journal.journalRecords; let i = index">
+              <th scope="row">{{i + 1}}</th>
+              <td>
+                  {{rec.date | date:'dd.MM.yyyy'}}
+              </td>
+              <td>
+                {{rec.time}}
+              </td>
+              <td>{{rec.group}}</td>
+              <td>{{rec.topic}}</td>
+              <td>{{rec.lessonType}}</td>
+          </tr>
+          <th *ngIf="!journal.journalRecords.length" colspan="6" class="special-item"><span>Записей пока нет</span></th>
+      </tbody>
+  </table>
+</ng-template>

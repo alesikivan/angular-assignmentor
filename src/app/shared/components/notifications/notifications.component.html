@@ -1,0 +1,16 @@
+<div class="notifications-block">
+  <ng-container *ngFor="let n of notifications">
+    <div
+      [class.alert]="true"
+      [ngClass]="{
+        'alert-error': n.status === 'error',
+        'alert-success': n.status === 'success'
+      }">
+        <div class="alert-info">
+            <span class="status">{{n.status || 'Уведомление' }}</span>
+            <span class="time">{{n.date}}</span>
+        </div>
+        <div class='alert-message'>{{n.message}}</div>
+    </div>
+  </ng-container>
+</div>

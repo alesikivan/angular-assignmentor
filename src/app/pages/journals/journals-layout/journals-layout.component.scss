@@ -1,0 +1,12 @@
+.journals-block {
+  display: flex;
+  justify-content: space-between;
+
+  .dynamic {
+    display: flex;
+    flex-direction: column;
+    padding-left: 10px;
+
+    margin-top: 38px;
+  }
+}

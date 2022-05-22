@@ -1,0 +1,41 @@
+<div class="container">
+  <form [formGroup]="form" autocomplete="off">
+      <div class="mb-1">
+          <label for="title" class="form-label">Название</label>
+          <div class="input-group has-validation">
+              <input type="text" #title [ngClass]="{'form-control': true, 'is-invalid': form.get('title')?.invalid &&
+              (form.get('title')?.dirty || form.get('title')?.touched)}" id="title" name="title"
+                  formControlName="title" placeholder="Название">
+              <div class="invalid-feedback">
+                  Поле должно быть заполнено!
+              </div>
+          </div>
+      </div>
+      <div class="mb-1">
+        <label for="description" class="form-label">Описание</label>
+        <textarea type="text" #description [ngClass]="{'form-control': true, 'is-invalid': form.get('description')?.invalid &&
+        (form.get('description')?.dirty || form.get('description')?.touched)}" id="description" name="description"
+            formControlName="description" placeholder="Название"></textarea>
+        <div class="input-group has-validation">
+            <div class="invalid-feedback">
+                Поле должно быть заполнено!
+            </div>
+        </div>
+    </div>
+      <label for="content" class="form-label">Содержимое</label>
+      <div class="editor">
+        <quill-editor
+          id="content"
+          name="content"
+          formControlName="content">
+        </quill-editor>
+      </div>
+      <input type="hidden" formControlName="date" name="content">
+      <div class="mb-1">
+          <div class="btn-group" role="group" aria-label="Basic example">
+              <button (click)="save()" [disabled]="form.invalid" class="btn btn-primary" type="button">
+                  {{id == 0 || id == null ? 'Save' : 'Update' }}</button>
+          </div>
+      </div>
+  </form>
+</div>

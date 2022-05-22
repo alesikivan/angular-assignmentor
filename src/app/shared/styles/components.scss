@@ -1,0 +1,41 @@
+@import './colors.scss';
+
+@mixin custom-boutton {
+  background-color: $grey;
+  color: #fff;
+  font-size: 0.9rem;
+  border-radius: 3px;
+  font-family: "Montserrat-Bold";
+  text-shadow: 1px 1px 2px #0000002e;
+  padding: 5px 10px;
+  user-select: none;
+
+  &:hover {
+    color: #fff;
+    opacity: 0.8;
+  }
+}
+
+.blue-button {
+  @include custom-boutton;
+  background-color: $blue;
+}
+
+.green-button {
+  @include custom-boutton;
+  background-color: $green;
+}
+
+.red-button {
+  @include custom-boutton;
+  background-color: $red;
+}
+
+.disabled-button {
+  cursor: default;
+  opacity: 0.6;
+
+  &:hover {
+    opacity: 0.6;
+  }
+}

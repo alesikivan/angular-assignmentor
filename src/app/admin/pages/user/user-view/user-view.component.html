@@ -1,0 +1,22 @@
+<h5 *ngIf="!item; else itemExist">Элемент не найден</h5>
+
+<ng-template #itemExist>
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th scope="col">id</th>
+        <th scope="col">Name</th>
+        <th scope="col">Email</th>
+        <th scope="col">Mobile</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th scope="row">{{item.id}}</th>
+        <td>{{item.name}}</td>
+        <td>{{item.email}}</td>
+        <td>{{item.mobile}}</td>
+      </tr>
+    </tbody>
+  </table>
+</ng-template>

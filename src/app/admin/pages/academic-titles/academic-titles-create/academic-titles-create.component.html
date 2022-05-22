@@ -1,0 +1,52 @@
+<div class="preview-blocks" *ngIf="preloader; else journalBlock">
+  <preview-block height="90px" width="30%"></preview-block>
+  <preview-block height="90px"></preview-block>
+  <preview-block height="90px"></preview-block>
+</div>
+
+<h5 *ngIf="itemNotFound">Элемент не найден..</h5>
+
+
+<ng-template #journalBlock>
+  <button
+  [routerLink]="['/admin', 'academic-titles', 'index']" 
+  type="button" 
+  class="btn input-group-text back-button blue-button cancel-button">Вернуться к списку</button>
+
+  <br><br>
+
+<ng-container *ngIf="!itemNotFound">
+  <form [formGroup]="form" autocomplete="off">
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+            <span class="input-group-text sector">Название учебного звания:</span>
+        </div>
+        <input type="title" [ngClass]="{'form-control': true, 'is-invalid': form.get('title')?.invalid &&
+              (form.get('title')?.dirty || form.get('title')?.touched)}" id="title" name="title"
+              formControlName="title" placeholder="Введите учебное звание">
+          <div class="invalid-feedback">
+              {{form.get('title')?.hasError('required') ? 'Поле обязательно к заполнению.': ''}}
+          </div>
+    </div>
+    <button 
+      class="green-button" 
+      type = "submit"
+      [class.disabled-button]="form.invalid || blockSubmitButton" 
+      (click)="save()" 
+      [disabled]="form.invalid || blockSubmitButton">
+      {{this.isCreateMode ? 'Создать новую запись' : 'Сохрнанить изменения'}}</button>
+
+      <button 
+        [ngStyle]="{'margin-left.px': '10'}"
+        *ngIf="!this.isCreateMode"
+        class="red-button" 
+        type = "submit"
+        [disabled]="blockSubmitButton"
+        [class.disabled-button]="blockSubmitButton" 
+        (click)="removeRecord()">
+        Удалить запись  
+      </button>
+  </form>
+</ng-container>
+
+</ng-template>

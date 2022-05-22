@@ -1,0 +1,11 @@
+@import "/src/app/shared/styles/settings.scss";
+
+.info {
+  margin: 10px auto;
+
+  @include flex-column;
+
+  a {
+    margin-top: 5px;
+  }
+}

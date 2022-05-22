@@ -1,0 +1,16 @@
+.select-journal {
+  width: 100%;
+  min-height: 76px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  p {
+    user-select: none;
+    font-size: 18px;
+    color: #9D9D9D;
+  }
+}

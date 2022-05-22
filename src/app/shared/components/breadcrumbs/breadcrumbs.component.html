@@ -1,0 +1,9 @@
+<div class="location">
+    <ng-container *ngFor="let b of breadcrumbs; let last = last">
+      <a *ngIf="!last" [routerLink]="b.link">{{b.title}}</a>
+      <a *ngIf="last">{{b.title}}</a>
+      <svg *ngIf="!last" width="6" height="10" viewBox="0 0 6 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M4.35355 4.64645L0.707107 1L1 0.707107L5.29289 5L1 9.29289L0.707107 9L4.35355 5.35355L4.70711 5L4.35355 4.64645Z" stroke="#94969B"/>
+      </svg>
+    </ng-container>
+</div>

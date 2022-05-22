@@ -1,0 +1,8 @@
+<h5 *ngIf="!item; else itemExist">Элемент не найден</h5>
+
+<ng-template #itemExist>
+  <h4>{{item.title}}</h4>
+  <div class="custom-content-editor">
+    <quill-view-html [content]="item.content"></quill-view-html>
+  </div>
+</ng-template>

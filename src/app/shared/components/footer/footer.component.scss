@@ -1,0 +1,50 @@
+footer {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  background: #292C37;
+  padding: 20px;
+  margin-top: auto;
+}
+
+footer p {
+  color: #94959B;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+footer .ingsot {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+footer .ingsot svg {
+  margin-right: 14px;
+}
+
+
+@media (max-width: 480px) {
+  footer {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-align: start;
+        -ms-flex-align: start;
+            align-items: flex-start;
+  }
+
+  footer .ingsot {
+    margin-top: 20px;
+  }
+}

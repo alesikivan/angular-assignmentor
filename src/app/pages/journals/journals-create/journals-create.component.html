@@ -1,0 +1,112 @@
+<div class="preview-blocks" *ngIf="preloader; else journalBlock">
+  <preview-block height="90px" width="30%"></preview-block>
+  <preview-block height="90px"></preview-block>
+  <preview-block height="90px"></preview-block>
+</div>
+
+<ng-template #journalBlock>
+  <button
+  [routerLink]="['/', 'journals', 'view', journalId]" 
+  type="button" 
+  class="btn input-group-text back-button blue-button cancel-button">Вернуться к журналу</button>
+
+  <h5>{{this.isCreateMode ? 'Создание новой записи' : 'Обновление записи'}}</h5>
+  <form [formGroup]="form" autocomplete="off">
+    <div class="input-group mb-3">
+            <span class="input-group-text sector">Дата проведенного занятия:</span>
+            <p-calendar
+              dateFormat="dd.mm.yy"
+              _locale="fr"
+              [showIcon]="true" 
+              inputId="icon" 
+              formControlName="date" 
+              [ngClass]="{'form-control': true, 'is-invalid': form.get('date')?.invalid && (form.get('date')?.dirty || form.get('date')?.touched)}">
+            </p-calendar>
+    </div>
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+            <span class="input-group-text sector">Академических часов:</span>
+        </div>
+        <input formControlName="hours" value="2" type="text" class="form-control grade-book-hours" placeholder="Академические часы">
+    </div>
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+            <label class="input-group-text sector">Время проведенного занятия</label>
+        </div>
+        <select 
+          [ngClass]="{'form-select': true, 'is-invalid': form.get('time')?.invalid && (form.get('time')?.dirty || form.get('time')?.touched)}"
+          formControlName="time">
+          <option value="Выбрать время..." disabled>Выбрать время...</option>
+          <option
+            *ngFor="let t of recordsHelper?.time" 
+            value={{t}} 
+            selected="form.get('time')?.value == t">{{t}}</option>
+        </select>
+        <div class="invalid-feedback">
+            Неверный выбор времени
+        </div>
+    </div>
+    <div class="input-group mb-3">
+      <div class="input-group-prepend">
+          <label class="input-group-text sector">Группа</label>
+      </div>
+      <select 
+        [ngClass]="{'form-select': true, 'is-invalid': form.get('group')?.invalid && (form.get('group')?.dirty || form.get('group')?.touched)}"
+        aria-label="Default select example"
+        formControlName="group">
+        <option value="Выбрать группу..." disabled>Выбрать группу...</option>
+        <option
+          *ngFor="let item of recordsHelper?.groups" 
+          value={{item}} 
+          selected="form.get('group')?.value == item">{{item}}</option>
+      </select>
+      <div class="invalid-feedback">
+          Неверный выбор группы
+      </div>
+    </div>
+
+    <div class="input-group mb-3">
+      <div class="input-group-prepend">
+          <label class="input-group-text sector">Тип занятия</label>
+      </div>
+      <select 
+        [ngClass]="{'form-select': true, 'is-invalid': form.get('lessonType')?.invalid && (form.get('lessonType')?.dirty || form.get('lessonType')?.touched)}"
+        aria-label="Default select example"
+        formControlName="lessonType">
+        <option value="Выбрать тип занятия..." disabled>Выбрать тип занятия...</option>
+        <option
+          *ngFor="let item of recordsHelper?.types" 
+          value={{item}} 
+          selected="form.get('lessonType')?.value == item">{{item}}</option>
+      </select>
+      <div class="invalid-feedback">
+          Неверный выбор типа занятия
+      </div>
+    </div>
+    <div class="input-group">
+        <div class="input-group-prepend">
+            <span class="input-group-text sector description">Содержание работы (тема)</span>
+        </div>
+        <textarea formControlName="topic" class="form-control grade-book-topic" aria-label="With textarea"></textarea>
+    </div>
+    <br>
+    <button 
+      class="green-button" 
+      type = "submit"
+      [class.disabled-button]="form.invalid || blockSubmitButton" 
+      (click)="createRecord()" 
+      [disabled]="form.invalid || blockSubmitButton">
+      {{this.isCreateMode ? 'Создать новую запись' : 'Сохрнанить изменения'}}</button>
+
+      <button 
+        [ngStyle]="{'margin-left.px': '10'}"
+        *ngIf="!this.isCreateMode"
+        class="red-button" 
+        type = "submit"
+        [disabled]="blockSubmitButton"
+        [class.disabled-button]="blockSubmitButton" 
+        (click)="removeRecord()">
+        Удалить запись  
+      </button>
+  </form>
+</ng-template>

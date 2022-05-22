@@ -1,0 +1,52 @@
+<div class="preview-blocks" *ngIf="preloader; else journalBlock">
+  <preview-block height="110px"></preview-block>
+  <preview-block height="110px"></preview-block>
+  <preview-block height="110px"></preview-block>
+</div>
+
+<ng-template #journalBlock>
+  <div class="container container-special scroll-x-container">
+    <p-table
+      [value]="list"
+      [paginator]="true"
+      [rows]="10"
+      [showCurrentPageReport]="true"
+      responsiveLayout="scroll"
+      currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+      [rowsPerPageOptions]="[10,25,50]">
+      <ng-template pTemplate="header">
+          <tr>
+              <th>Действия</th>
+              <th>ID</th>
+              <th>ФИО</th>
+              <th>Кафедра</th>
+              <th>Звание</th>
+              <th>Должность</th>
+              <th>Позиция</th>
+              <th>Начало работы</th>
+          </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-object>
+          <tr [ngClass]="{'inActive': object.isActive == false}">
+                <td>
+                  <a pButton pRipple type="button" style="margin-left: 5px;" [routerLink]="['/admin', 'teachers' , 'update', object.id]" icon="pi pi-user-edit"
+                      class="p-button-rounded"></a>
+                  <a pButton pRipple type="button" (click)="remove(object.id)" style="margin-left: 5px;"
+                      icon="pi pi-trash" class="p-button-rounded"></a>
+              </td>
+              <td>{{object.id}}</td>
+              <td>{{object.name}}</td>
+              <td>{{object.department}}</td>
+              <td>{{object.academicDegree}}</td>
+              <td>{{object.academicTitle}}</td>
+              <td>{{object.teacherPost}}</td>
+              <td>{{object.experience}}</td>
+          </tr>
+      </ng-template>
+      <ng-template pTemplate="paginatorleft">
+          <a [routerLink]="['/admin', 'teachers', 'create']" class="btn btn-primary">Добавить</a>
+      </ng-template>
+    </p-table>
+  </div>
+</ng-template>
+

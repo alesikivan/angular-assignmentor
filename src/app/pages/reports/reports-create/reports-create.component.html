@@ -1,0 +1,59 @@
+<form [formGroup]="form" autocomplete="off">
+  <div class="input-group mb-3">
+      <div class="input-group-prepend">
+          <span class="input-group-text sector">Описание:</span>
+      </div>
+      <input formControlName="description" value="" type="text" class="form-control grade-book-hours" placeholder="Описание">
+  </div>
+  <div class="input-group mb-3">
+      <div class="input-group-prepend">
+          <label class="input-group-text sector">Преподаватель</label>
+      </div>
+      <select 
+        [ngClass]="{'form-select': true, 'is-invalid': form.get('teacher_id')?.invalid && (form.get('teacher_id')?.dirty || form.get('teacher_id')?.touched)}"
+        formControlName="teacher_id">
+        <option value="Выбрать..." disabled>Выбрать преподавателя...</option>
+        <option
+          *ngFor="let item of dataHepler?.teachers" 
+          value={{item.id}} 
+          selected="form.get('teacher_id')?.value == item.id">{{ item.full_name }}</option>
+      </select>
+      <div class="invalid-feedback">Проверьте выбранное поле</div>
+  </div>
+  <div class="input-group mb-3">
+    <div class="input-group-prepend">
+        <label class="input-group-text sector">Уровень отчета</label>
+    </div>
+    <select 
+      [ngClass]="{'form-select': true, 'is-invalid': form.get('level')?.invalid && (form.get('level')?.dirty || form.get('level')?.touched)}"
+      formControlName="level">
+      <option value="brest">Брест</option>
+      <option value="belarus">Беларусь</option>
+      <option value="foreign">Зарубежный</option>
+    </select>
+    <div class="invalid-feedback">Проверьте выбранное поле</div>
+  </div>
+  <div class="input-group mb-3">
+    <div class="input-group-prepend">
+        <label class="input-group-text sector">Тип отчета</label>
+    </div>
+    <select 
+      [ngClass]="{'form-select': true, 'is-invalid': form.get('type_id')?.invalid && (form.get('type_id')?.dirty || form.get('type_id')?.touched)}"
+      formControlName="type_id">
+      <option value="Выбрать..." disabled>Выбрать тип отчета...</option>
+      <option
+        *ngFor="let item of dataHepler?.types" 
+        value={{item.id}} 
+        selected="form.get('teacher_id')?.value == item.id">{{ item.title }}</option>
+    </select>
+    <div class="invalid-feedback">Проверьте выбранное поле</div>
+</div>
+  <br>
+  <button 
+    class="green-button" 
+    type = "submit"
+    [class.disabled-button]="form.invalid || blockSubmitButton" 
+    (click)="save()" 
+    [disabled]="form.invalid || blockSubmitButton">
+    {{this.isCreateMode ? 'Создать отчет' : 'Сохрнанить изменения'}}</button>
+</form>

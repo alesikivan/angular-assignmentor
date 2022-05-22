@@ -1,0 +1,150 @@
+.notifications-block {
+	min-height: 40px;
+	z-index: 200000;
+
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: flex-end;
+
+	position: fixed;
+	right: 20px;
+	top: 80px;
+
+  .alert {
+    border-color: #cccc;
+    cursor: pointer;
+    border-radius: 7px;
+    min-height: 40px;
+    min-width: 350px;
+    text-align: center;
+    margin-bottom: 10px;
+
+    box-shadow: 1px 1px 5px #cccc;
+    background-color: #f6f6f6;
+    border-radius: 4px;
+    padding: 10px;
+    max-width: 300px;
+    transition: 0.4;
+    position: relative;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    .alert-info{
+      border-bottom: 1px solid #ccc;
+      padding-bottom: 3px;
+      width: 100%;
+      background-color: #f6f6f6;
+
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      .status,  .time {
+        font-size: 14px;
+        color: #4C5A65;
+      }
+    }
+
+    .alert-message {
+      margin-top: 3px;
+      width: 100%;
+      user-select: none;
+      font-size: 12px;
+      color: #4C5A65;
+      text-align: left;
+
+      a {
+        color: #337ab7;
+      }
+    }
+
+    .alert-point {
+      transition: 0.3s;
+    }
+
+    .status {
+      text-transform: capitalize;
+    }
+
+    &.alert-success {
+      .alert-info {
+        .status {
+          color: #549F8A;
+        }
+      }
+    }
+
+    &.alert-error {
+      .alert-info {
+        .status {
+          color: #E0736C;
+        }
+      }
+
+      .alert-point {
+        margin-right: 10px;
+        background-color: #ed6037;
+
+        &:hover{
+          background-color: #c7441e;
+        }
+      }
+    }
+
+    .alert-point {
+      right: 15px;
+      width: 20px;
+      height: 20px;
+      border-radius: 50px;
+      transition: 0.3s;
+      margin-left: 10px;
+
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+
+      &:hover {
+        background-color: #C8DEE9;
+      }
+
+      p{
+        user-select: none;
+        font-weight: bold;
+        font-size: 1.2em;
+        transform: rotate(45deg);
+      }
+    }
+  }
+}
+
+.alert-success .alert-point{
+	transition: 0.3s;
+	background-color: #2fc477;
+}
+
+.alert-success .alert-point:hover{
+	background-color: #3c8e64;
+}
+
+
+/* ADAP */
+@media (max-width: 960px) {
+	.alert {
+	  min-height: 30px;
+    min-width: 290px;
+	}
+	.alert .alert-message{
+	  font-size: 0.9em;
+	}
+}
+
+@media (max-width: 650px) {
+	.alert-wrapper {
+		right: auto;
+	}
+}

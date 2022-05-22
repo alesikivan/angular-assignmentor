@@ -1,0 +1,21 @@
+.location {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  grid-gap: 7px;
+  margin: 20px 0;
+}
+
+.location a {
+  font-size: 12px;
+  line-height: 16px;
+}
+
+.location a:last-of-type {
+  color: #94969B;
+}

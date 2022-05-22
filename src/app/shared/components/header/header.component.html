@@ -1,0 +1,35 @@
+
+<header>
+  <nav id="w0" class="navbar">
+    <div class="container-fluid">
+      <a class="navbar-brand" routerLink="/">Assignmentor</a>
+      <div id="collapse" class="collapse navbar-collapse">
+        <ul id="w1" class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" [routerLink]="['/', 'docs', 'create']">Документы</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" [routerLink]="['/', 'reports', 'create']">Отчеты</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" [routerLink]="['/admin']">Админка</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" [routerLink]="['/', 'journals', 'index']">Журнал</a>
+          </li>
+          <!-- <li class="nav-item" *ngIf="!permission">
+            <a class="nav-link" [routerLink]="['/admin', 'register']">Регистрация</a>
+          </li>
+          <li *ngIf="!permission; else logOut" >
+            <a class="btn login blue-button" [routerLink]="['/admin', 'login']">Войти</a>
+          </li> -->
+          <ng-template #logOut>
+            <li>
+              <a class="btn logout blue-button" (click)="logout()">Выйти</a>
+            </li>
+          </ng-template>
+        </ul>
+      </div>
+    </div>
+  </nav>
+</header>

@@ -1,0 +1,31 @@
+<h5>Все журналы</h5>
+<div class="input-group">
+    <input type="text" class="form-control grade-book-search" placeholder="Поиск">
+    <div class="input-group-append">
+        <button class="btn input-group-text grade-book-search-button" type="button">Найти</button>
+    </div>
+</div>
+
+<div class="preview-blocks" *ngIf="preloader; else journalsBlock">
+    <preview-block height="50px"></preview-block>
+    <preview-block height="50px"></preview-block>
+    <preview-block height="50px"></preview-block>
+</div>
+
+<ng-template #journalsBlock>
+    <ul class="list-group">
+        <li
+            *ngFor="let journal of journals"
+            data-id={{journal.id}}
+            [class.active-item]="journal.id == activeJournal"
+            (click)="openJournal(journal.id)"
+            class="list-group-item grade-book-item">
+            <b>{{journal.title}}</b>
+            <span>{{journal.teacher.name}}</span>
+        </li>
+        <li
+            [ngStyle]="{'cursor': 'default'}"
+            *ngIf="!journals.length" 
+            class="list-group-item">Журналов не найдено..</li>
+    </ul>
+</ng-template>

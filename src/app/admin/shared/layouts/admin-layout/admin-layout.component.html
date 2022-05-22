@@ -1,0 +1,41 @@
+<div class="wrapper">
+  <header class="main-header">
+    <div class="container-fluid">
+      <a routerLink="/">BRSU Admin</a>
+      <nav>
+        <ul *ngIf="auth.isAuthenticated()">
+          <li class="header-link">
+            <a [routerLink]="['/']">Главная</a>
+          </li>
+          <li class="header-link">
+            <a [routerLink]="['/', 'journals', 'index']">Журнал</a>
+          </li>
+          <li class="logout-link">
+            <a href="#" (click)="logout($event)">Выйти</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <app-notifications></app-notifications>
+
+  <div class="content container-fluid container-special admin-content">
+    <app-breadcrumbs></app-breadcrumbs>
+
+    <div class="cover">
+
+      <div class="admin-menu" *ngIf="auth.isAuthenticated()">
+        <admin-menu></admin-menu>
+      </div>
+
+      <div class="admin-page">
+        <router-outlet></router-outlet>
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="main-footer"></div>
+</div>

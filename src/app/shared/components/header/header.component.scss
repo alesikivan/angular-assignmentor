@@ -1,0 +1,50 @@
+.navbar {
+  background-color: #fff !important;
+  border-bottom: 1px solid #E1E6EC !important;
+
+  .container-fluid {
+    flex-wrap: nowrap;
+  }
+
+  .navbar-brand {
+    color: #1597E5;
+    font-family: "Montserrat-Bold";
+
+    &:hover {
+      opacity: 0.8;
+      color: #1597E5;
+    }
+  }
+
+  .collapse {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+  }
+
+  ul {
+    flex-direction: row;
+    li {
+      margin-left: 20px;
+
+      a {
+        color: #666 !important;
+        font-size: 0.9rem;
+        user-select: none;
+        transition: 0.3s;
+
+        &:hover {
+          opacity: 0.8;
+        }
+      }
+
+      .logout, .login {
+        color: #fff !important;
+      }
+    }
+  }
+}
+
+.table-responsive {
+  margin-top: 5px !important;
+}

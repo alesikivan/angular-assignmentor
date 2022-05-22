@@ -1,0 +1,50 @@
+.bg-light {
+  width: 100%;
+  max-width: none !important;
+}
+
+.card-header {
+  font-family: "Montserrat-Bold";
+}
+
+.table {
+  border-radius: 3px;
+
+  thead {
+    tr {
+      text-align: center;
+
+      &.main-row {
+        border-bottom: 2px solid #ebebed;
+      }
+      
+      th {
+        border-bottom-width: 1px;
+        background-color: #cccccc30;
+      }
+    }
+  }
+
+  tbody {
+    tr {
+      font-size: 0.9rem;
+      text-align: center;
+      cursor: pointer;
+
+      &:hover {
+        background-color: #cccccc3d;
+      }
+    }
+
+    .special-item {
+      text-align: center;
+      border: 2px solid #ebebed;
+      padding: 5px 0;
+      background-color: #ccc0;
+
+      span {
+        user-select: none;
+      }
+    }
+  }
+}
