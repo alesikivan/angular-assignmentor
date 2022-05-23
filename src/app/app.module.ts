@@ -17,7 +17,7 @@ import { NotFoundPageComponent } from './pages/not-found-page/not-found-page.com
 // import { PreviewComponent } from './shared/components/preview/preview.component';
 import { NotificationsService } from './shared/services/notifications.service';
 import { BreadcrumbsService } from './shared/services/breadcrumbs.service';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { JournalsCreateComponent } from './pages/journals/journals-create/journals-create.component';
 import { JournalsViewComponent } from './pages/journals/journals-view/journals-view.component';
 import { JournalsIndexComponent } from './pages/journals/journals-index/journals-index.component';
@@ -57,6 +57,7 @@ const INTERCEPTOR_PROVIDER: Provider = {
     SharedModule,
     ReactiveFormsModule,
     CalendarModule,
+    FormsModule
   ],
   providers: [
     AuthService,

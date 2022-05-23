@@ -59,7 +59,7 @@ export class ReportsCreateComponent implements OnInit {
       description: ['', [Validators.required]],
       teacher_id: ['Выбрать...', [Validators.required]],
       level: ['brest', [Validators.required]],
-      workTypes: ['Выбрать...', [Validators.required]],
+      workTypes: ['Выбрать вид работы...', [Validators.required]],
     })
   } 
 
@@ -135,8 +135,9 @@ export class ReportsCreateComponent implements OnInit {
   create() {
 
     let path = ''
-
     const { id, type } = this.workTypeItem
+    const data = this.form.value
+    const { teacher_id } = data
 
     switch(type) {
       case 'educational':
@@ -145,20 +146,15 @@ export class ReportsCreateComponent implements OnInit {
       case 'scientific':
         path = requests.createScientificReport
         break;
-      default: 
-        path = requests.createMethodicalReport
+      default: path = requests.createMethodicalReport
     }
 
-    console.log(this.form.value.workTypes)
-    console.log(this.workTypeItem)
-
-    const obj = Object.assign(this.form.value, {
-      teachers: [this.form.value.teacher_id],
+    const report = Object.assign(data, { 
+      teachers: [teacher_id],
       type_id: id
     })
-    console.log(obj);
 
-    this.reportsService.createReport(path, this.form.value)
+    this.reportsService.createReport(path, report)
       .subscribe(
         () => {
           this.notifications.success('Объект успешно создан!')
