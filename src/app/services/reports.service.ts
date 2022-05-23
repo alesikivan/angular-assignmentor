@@ -22,9 +22,9 @@ export class ReportsService {
     return this.http.get(`${requests.reportsHelperData}`).pipe(this._untilDestroyed())
   }
   
-  create(data: any) {
-    return this.http.post(`${requests.createReport}`, data).pipe(this._untilDestroyed())
-  }
+  // create(data: any) {
+  //   return this.http.post(`${requests.createReport}`, data).pipe(this._untilDestroyed())
+  // }
 
   createReport(path: any, data: any) {
     return this.http.post(path, data).pipe(this._untilDestroyed())
