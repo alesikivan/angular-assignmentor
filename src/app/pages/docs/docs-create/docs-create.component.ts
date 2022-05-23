@@ -80,7 +80,8 @@ export class DocsCreateComponent implements OnInit {
     if (params['id'] != null) this.preloader = true
 
     this.reportsService.getTeachers({})
-      .subscribe((data) => {
+      .subscribe((response: any) => {
+        const { data } = response
         this.teachers = data
         console.log(this.teachers)
         // this.setFormData(params)

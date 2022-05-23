@@ -31,6 +31,8 @@ export class ReportsCreateComponent implements OnInit {
 
   public workTypes: any = []
 
+  public workTypeItem: any
+
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -85,17 +87,17 @@ export class ReportsCreateComponent implements OnInit {
     if (params['id'] != null) this.preloader = true
 
     this.reportsService.getTeachers({})
-      .subscribe((data) => {
-
-        this. teachers = data
+      .subscribe((response: any) => {
+        const { data } = response
+        this.teachers = data
         console.log(this.teachers)
         // this.setFormData(params)
       })
 
     this.reportsService.getReportTypes({})
-      .subscribe((data) => {
-
-        this. workTypes = data
+      .subscribe((response: any) => {
+        const { data } = response
+        this.workTypes = data
         console.log(this.workTypes)
         // this.setFormData(params)
       })
@@ -134,7 +136,9 @@ export class ReportsCreateComponent implements OnInit {
 
     let path = ''
 
-    switch(this.form.value.workTypes) {
+    const { id, type } = this.workTypeItem
+
+    switch(type) {
       case 'educational':
         path = requests.createEducationalReport
         break; 
@@ -146,6 +150,13 @@ export class ReportsCreateComponent implements OnInit {
     }
 
     console.log(this.form.value.workTypes)
+    console.log(this.workTypeItem)
+
+    const obj = Object.assign(this.form.value, {
+      teachers: [this.form.value.teacher_id],
+      type_id: id
+    })
+    console.log(obj);
 
     this.reportsService.createReport(path, this.form.value)
       .subscribe(

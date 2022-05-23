@@ -23,7 +23,7 @@ export const requests = {
   recordUpdate: `${domen}/api/journals/record-update`,
   recordRemove: `${domen}/api/journals/record-remove`,
   
-  getTeachers: `${domen}/admin/teachers/index`,
+  getTeachers: `${domen}/admin/teacher/index`,
   getTeacher: `${domen}/api/teachers/get`,
   deleteTeacher: `${domen}/api/teachers/delete`,
   addTeacher: `${domen}/api/teachers/add`,
