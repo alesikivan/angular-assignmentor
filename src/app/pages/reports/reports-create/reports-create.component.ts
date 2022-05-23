@@ -27,6 +27,10 @@ export class ReportsCreateComponent implements OnInit {
 
   public preloader = false
 
+  public teachers: any = []
+
+  public workTypes: any = []
+
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -53,10 +57,7 @@ export class ReportsCreateComponent implements OnInit {
       description: ['', [Validators.required]],
       teacher_id: ['Выбрать...', [Validators.required]],
       level: ['brest', [Validators.required]],
-      type_id : ['educational', [Validators.required]]
-      // educationalDoc: `${domen}/api/reports/test`,
-      // scientificDoc: `${domen}/api/reports/test`,
-      // methodicalDoc:
+      workTypes: ['Выбрать...', [Validators.required]],
     })
   } 
 
@@ -83,10 +84,19 @@ export class ReportsCreateComponent implements OnInit {
   setData(params: any) {
     if (params['id'] != null) this.preloader = true
 
-    this.reportsService.dataHepler({})
+    this.reportsService.getTeachers({})
       .subscribe((data) => {
-        this.dataHepler = data
-        console.log(this.dataHepler)
+
+        this. teachers = data
+        console.log(this.teachers)
+        // this.setFormData(params)
+      })
+
+    this.reportsService.getReportTypes({})
+      .subscribe((data) => {
+
+        this. workTypes = data
+        console.log(this.workTypes)
         // this.setFormData(params)
       })
   }
@@ -124,7 +134,7 @@ export class ReportsCreateComponent implements OnInit {
 
     let path = ''
 
-    switch(this.form.value.docsType) {
+    switch(this.form.value.workTypes) {
       case 'educational':
         path = requests.createEducationalReport
         break; 
@@ -134,6 +144,8 @@ export class ReportsCreateComponent implements OnInit {
       default: 
         path = requests.createMethodicalReport
     }
+
+    console.log(this.form.value.workTypes)
 
     this.reportsService.createReport(path, this.form.value)
       .subscribe(

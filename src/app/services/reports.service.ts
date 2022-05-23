@@ -18,8 +18,12 @@ export class ReportsService {
     return this.http.get(`${requests.test}`).pipe(this._untilDestroyed())
   }
 
-  dataHepler(data: any) {
+  getTeachers(data: any) {
     return this.http.get(`${requests.getTeachers}`).pipe(this._untilDestroyed())
+  }
+  
+  getReportTypes(data: any) {
+    return this.http.get(`${requests.getReportTypes}`).pipe(this._untilDestroyed())
   }
   
   // create(data: any) {

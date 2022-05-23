@@ -21,7 +21,7 @@ export class DocsCreateComponent implements OnInit {
   
   public form: FormGroup
 
-  public dataHepler: any
+  public teachers: any = []
 
   public blockSubmitButton = false
 
@@ -79,10 +79,10 @@ export class DocsCreateComponent implements OnInit {
   setData(params: any) {
     if (params['id'] != null) this.preloader = true
 
-    this.reportsService.dataHepler({})
+    this.reportsService.getTeachers({})
       .subscribe((data) => {
-        this.dataHepler = data
-        console.log(this.dataHepler)
+        this.teachers = data
+        console.log(this.teachers)
         // this.setFormData(params)
       })
   }

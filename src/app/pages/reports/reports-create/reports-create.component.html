@@ -14,7 +14,7 @@
         formControlName="teacher_id">
         <option value="Выбрать..." disabled>Выбрать преподавателя...</option>
         <option
-          *ngFor="let item of dataHepler?.teachers" 
+          *ngFor="let item of teachers" 
           value={{item.id}} 
           selected="form.get('teacher_id')?.value == item.id">{{ item.full_name }}</option>
       </select>
@@ -33,19 +33,23 @@
     </select>
     <div class="invalid-feedback">Проверьте выбранное поле</div>
   </div>
+
   <div class="input-group mb-3">
     <div class="input-group-prepend">
-        <label class="input-group-text sector">Тип отчета</label>
+        <label class="input-group-text sector">Вид работы</label>
     </div>
     <select 
-      [ngClass]="{'form-select': true, 'is-invalid': form.get('type_id')?.invalid && (form.get('type_id')?.dirty || form.get('type_id')?.touched)}"
-      formControlName="type_id">
-      <option value="educational">Воспитательная и идеологическая деятельность</option>
-      <option value="scientific">Научно-исследовательская деятельность</option>
-      <option value="methodical">Учебно-методическая деятельность</option>
+      [ngClass]="{'form-select': true, 'is-invalid': form.get('workTypes')?.invalid && (form.get('workTypes')?.dirty || form.get('workTypes')?.touched)}"
+      formControlName="workTypes">
+      <option value="Выбрать вид работы..." disabled>Выбрать вид работы...</option>
+      <option
+        *ngFor="let item of workTypes" 
+        value={{item.id}} 
+        selected="form.get('workTypes')?.value == item.type">{{item.serial_number}} {{item.description}}</option>
     </select>
     <div class="invalid-feedback">Проверьте выбранное поле</div>
 </div>
+  
   <br>
   <button 
     class="green-button" 

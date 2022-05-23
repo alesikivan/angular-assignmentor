@@ -14,7 +14,7 @@
         formControlName="teacher_id">
         <option value="Выбрать..." disabled>Выбрать преподавателя...</option>
         <option
-          *ngFor="let item of dataHepler?.teachers" 
+          *ngFor="let item of teachers" 
           value={{item.id}} 
           selected="form.get('teacher_id')?.value == item.id">{{ item.full_name }}</option>
       </select>
