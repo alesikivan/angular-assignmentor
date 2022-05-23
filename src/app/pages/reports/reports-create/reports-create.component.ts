@@ -158,7 +158,7 @@ export class ReportsCreateComponent implements OnInit {
     })
     console.log(obj);
 
-    this.reportsService.createReport(path, this.form.value)
+    this.reportsService.createReport(path, obj)
       .subscribe(
         () => {
           this.notifications.success('Объект успешно создан!')

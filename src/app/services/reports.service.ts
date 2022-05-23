@@ -1,4 +1,5 @@
 import { HttpClient } from '@angular/common/http';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Injectable } from '@angular/core';
 import { TUntilDestroyed, UntilDestroyed } from 'src/app/shared/decorators/until-destroyed';
 import { requests } from 'src/app/shared/requests';
@@ -11,7 +12,8 @@ export class ReportsService {
   @UntilDestroyed() private _untilDestroyed: TUntilDestroyed
 
   constructor(
-    private http: HttpClient
+    private http: HttpClient,
+    private router: Router
   ) {}
 
   test(data: any) {
@@ -35,6 +37,11 @@ export class ReportsService {
   }
 
   createDoc(path: any, data: any) {
-    return this.http.post(path, data).pipe(this._untilDestroyed())
+    try {
+      window.location.href = `${path}?document_header=${data.document_header}&teacher_id=${data.teacher_id}`
+    } catch(e) {
+      console.log(e)
+    }
+    return this.router.navigate(['/']);
   }
 }

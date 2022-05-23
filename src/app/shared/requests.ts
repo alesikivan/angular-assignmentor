@@ -4,9 +4,9 @@ export const requests = {
 
   test: `${domen}/api/reports/test`,
 
-  educationalDoc: `${domen}/document-builder/educational-work/index`,
-  scientificDoc: `${domen}/document-builder/scientific-work/index`,
-  methodicalDoc: `${domen}/document-builder/methodical-work/index`,
+  educationalDoc: `${domen}/documentBuilder/site/educational-work`,
+  scientificDoc: `${domen}/documentBuilder/site/scientific-work`,
+  methodicalDoc: `${domen}/documentBuilder/site/methodical-work`,
 
   createEducationalReport: `${domen}/admin/educational-work/create`,
   createScientificReport: `${domen}/admin/scientific-work/create`,
