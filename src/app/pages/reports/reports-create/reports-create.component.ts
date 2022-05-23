@@ -4,6 +4,7 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 import { TeacherModel } from 'src/app/admin/models/teacher';
 import { TeachersService } from 'src/app/admin/services/teachers.service';
 import { ReportsService } from 'src/app/services/reports.service';
+import { requests } from 'src/app/shared/requests';
 import { BreadcrumbsService } from 'src/app/shared/services/breadcrumbs.service';
 import { NotificationsService } from 'src/app/shared/services/notifications.service';
 
@@ -52,7 +53,10 @@ export class ReportsCreateComponent implements OnInit {
       description: ['', [Validators.required]],
       teacher_id: ['Выбрать...', [Validators.required]],
       level: ['brest', [Validators.required]],
-      type_id : ['Выбрать...', [Validators.required]]
+      type_id : ['educational', [Validators.required]]
+      // educationalDoc: `${domen}/api/reports/test`,
+      // scientificDoc: `${domen}/api/reports/test`,
+      // methodicalDoc:
     })
   } 
 
@@ -117,7 +121,21 @@ export class ReportsCreateComponent implements OnInit {
   }
 
   create() {
-    this.reportsService.create(this.form.value)
+
+    let path = ''
+
+    switch(this.form.value.docsType) {
+      case 'educational':
+        path = requests.educationalReport
+        break; 
+      case 'scientific':
+        path = requests.scientificReport
+        break;
+      default: 
+        path = requests.methodicalReport
+    }
+
+    this.reportsService.createReport(path, this.form.value)
       .subscribe(
         () => {
           this.notifications.success('Объект успешно создан!')

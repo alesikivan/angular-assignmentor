@@ -40,11 +40,9 @@
     <select 
       [ngClass]="{'form-select': true, 'is-invalid': form.get('type_id')?.invalid && (form.get('type_id')?.dirty || form.get('type_id')?.touched)}"
       formControlName="type_id">
-      <option value="Выбрать..." disabled>Выбрать тип отчета...</option>
-      <option
-        *ngFor="let item of dataHepler?.types" 
-        value={{item.id}} 
-        selected="form.get('teacher_id')?.value == item.id">{{ item.title }}</option>
+      <option value="educational">Воспитательная и идеологическая деятельность</option>
+      <option value="scientific">Научно-исследовательская деятельность</option>
+      <option value="methodical">Учебно-методическая деятельность</option>
     </select>
     <div class="invalid-feedback">Проверьте выбранное поле</div>
 </div>

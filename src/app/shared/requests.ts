@@ -11,6 +11,10 @@ export const requests = {
 
   recordsData: `${domen}/api/custom/records-data`,
 
+  educationalReport: `${domen}/api/reports/test`,
+  scientificReport: `${domen}/api/reports/test`,
+  methodicalReport: `${domen}/api/reports/test`,
+
   getJournals: `${domen}/api/journals`,
   getJournal: `${domen}/api/journals/get`,
   deleteJournal: `${domen}/api/journals/delete`,

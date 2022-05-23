@@ -26,6 +26,10 @@ export class ReportsService {
     return this.http.post(`${requests.createReport}`, data).pipe(this._untilDestroyed())
   }
 
+  createReport(path: any, data: any) {
+    return this.http.post(path, data).pipe(this._untilDestroyed())
+  }
+
   createDoc(path: any, data: any) {
     return this.http.post(path, data).pipe(this._untilDestroyed())
   }
