@@ -126,13 +126,13 @@ export class ReportsCreateComponent implements OnInit {
 
     switch(this.form.value.docsType) {
       case 'educational':
-        path = requests.educationalReport
+        path = requests.createEducationalReport
         break; 
       case 'scientific':
-        path = requests.scientificReport
+        path = requests.createScientificReport
         break;
       default: 
-        path = requests.methodicalReport
+        path = requests.createMethodicalReport
     }
 
     this.reportsService.createReport(path, this.form.value)

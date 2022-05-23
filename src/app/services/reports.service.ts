@@ -19,7 +19,7 @@ export class ReportsService {
   }
 
   dataHepler(data: any) {
-    return this.http.get(`${requests.reportsHelperData}`).pipe(this._untilDestroyed())
+    return this.http.get(`${requests.getTeachers}`).pipe(this._untilDestroyed())
   }
   
   // create(data: any) {

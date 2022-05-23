@@ -15,10 +15,6 @@ export const requests = {
 
   recordsData: `${domen}/api/custom/records-data`,
 
-  educationalReport: `${domen}/api/reports/test`,
-  scientificReport: `${domen}/api/reports/test`,
-  methodicalReport: `${domen}/api/reports/test`,
-
   getJournals: `${domen}/api/journals`,
   getJournal: `${domen}/api/journals/get`,
   deleteJournal: `${domen}/api/journals/delete`,
@@ -33,6 +29,8 @@ export const requests = {
   addTeacher: `${domen}/api/teachers/add`,
   updateTeacher: `${domen}/api/teachers/update`,
   helperData: `${domen}/api/teachers/helper-data`,
+
+  getReportTypes: `${domen}/admin/work-report-type/index`,
 
   getUsers: `${domen}/api/users`,
   getUser: `${domen}/api/users/get`,
