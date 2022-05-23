@@ -1,13 +1,17 @@
-const domen = 'http://localhost:3333'
+const domen = 'http://localhost'
 
 export const requests = {
 
   test: `${domen}/api/reports/test`,
-  educationalDoc: `${domen}/api/reports/test`,
-  scientificDoc: `${domen}/api/reports/test`,
-  methodicalDoc: `${domen}/api/reports/test`,
-  reportsHelperData: `${domen}/api/reports/helper-data`,
-  createReport: `${domen}/api/reports/create`,
+
+  educationalDoc: `${domen}/document-builder/educational-work/index`,
+  scientificDoc: `${domen}/document-builder/scientific-work/index`,
+  methodicalDoc: `${domen}/document-builder/methodical-work/index`,
+
+  createEducationalReport: `${domen}/admin/educational-work/create`,
+  createScientificReport: `${domen}/admin/scientific-work/create`,
+  createMethodicalReport: `${domen}/admin/methodical-work/create`,
+  reportsHelperData: `${domen}/reports/helper-data`,
 
   recordsData: `${domen}/api/custom/records-data`,
 
@@ -19,7 +23,7 @@ export const requests = {
   recordUpdate: `${domen}/api/journals/record-update`,
   recordRemove: `${domen}/api/journals/record-remove`,
   
-  getTeachers: `${domen}/api/teachers`,
+  getTeachers: `${domen}/admin/teachers/index`,
   getTeacher: `${domen}/api/teachers/get`,
   deleteTeacher: `${domen}/api/teachers/delete`,
   addTeacher: `${domen}/api/teachers/add`,
