@@ -154,17 +154,6 @@ export class ReportsCreateComponent implements OnInit {
     })
 
     this.reportsService.createReport(path, report)
-      .subscribe(
-        () => {
-          this.notifications.success('Объект успешно создан!')
-          this.router.navigate(['/']);
-        },
-        e => {
-          console.log(e)
-          this.notifications.danger('Что-то пошло не так, проверьте данные.')
-        },
-        () => this.blockSubmitButton = false
-      )
   }
 
   // update() {

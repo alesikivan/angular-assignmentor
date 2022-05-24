@@ -39,6 +39,6 @@
     type = "submit"
     [class.disabled-button]="form.invalid || blockSubmitButton" 
     (click)="save()" 
-    [disabled]="form.invalid || blockSubmitButton">
+    >
     {{this.isCreateMode ? 'Создать отчет' : 'Сохрнанить изменения'}}</button>
 </form>

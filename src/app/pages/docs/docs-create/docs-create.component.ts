@@ -133,17 +133,6 @@ export class DocsCreateComponent implements OnInit {
     }
 
     this.reportsService.createDoc(path, this.form.value)
-      .subscribe(
-        () => {
-          this.notifications.success('Объект успешно создан!')
-          this.router.navigate(['/']);
-        },
-        e => {
-          console.log(e)
-          this.notifications.danger('Что-то пошло не так, проверьте данные.')
-        },
-        () => this.blockSubmitButton = false
-      )
   }
 
   // update() {
