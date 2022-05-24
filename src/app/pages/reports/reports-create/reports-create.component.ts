@@ -90,7 +90,6 @@ export class ReportsCreateComponent implements OnInit {
       .subscribe((response: any) => {
         const { data } = response
         this.teachers = data
-        console.log(this.teachers)
         // this.setFormData(params)
       })
 
