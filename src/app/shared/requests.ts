@@ -15,9 +15,9 @@ export const requests = {
 
   recordsData: `${domen}/api/custom/records-data`,
 
-  getJournals: `${domen}/admin/teacher-journal/index`,
-  getJournal: `${domen}/admin/teacher-journal/read`,
-  deleteJournal: `${domen}/admin/teacher-journal/delete`,
+  getJournals: `${domen}/admin/journal/index`,
+  getJournal: `${domen}/admin/journal/read`,
+  deleteJournal: `${domen}/admin/journal/delete`,
   addJournal: `${domen}/api/journals/add`,
   updateJournal: `${domen}/api/journals/update`,
   recordUpdate: `${domen}/api/journals/record-update`,

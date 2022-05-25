@@ -24,11 +24,13 @@ export class JournalsMenuComponent implements OnInit {
   ) {
     this.journalsService.getAll()
       .subscribe(
-        journals => this.journals = [...journals],
-        () => {},
+        (response: any) => {
+          const { data } = response
+          this.journals = data
+          console.log(this.journals)
+        },
         () => this.preloader = false
       )
-
     this.journalsService.activeJournal$
       .subscribe(id => this.activeJournal = id)
   }
@@ -36,7 +38,7 @@ export class JournalsMenuComponent implements OnInit {
   openJournal(id: Number) {
     this.router.navigate(['/', 'journals', 'view', id])
 
-    this.notifications.success('Заргужаем журнал..')
+    this.notifications.success('Загружаем журнал..')
   }
 
   ngOnInit(): void {
