@@ -25,11 +25,13 @@ export class JournalsService {
   }
 
   getAll() {
-    return this.http.get<Journal[]>(requests.getJournals).pipe(this._untilDestroyed())
+    return this.http.get<Journal[]>(`${requests.getJournals}?expand=teacher.academicTitle`).pipe(this._untilDestroyed())
   }
 
   getByID(id: number): any {
-    return this.http.get<Journal>(`${requests.getJournal}/${id}`).pipe(this._untilDestroyed())
+    return this.http
+      .get<Journal>(`${requests.getJournal}/${id}?expand=journalRecords.group.course,journalRecords.classType,teacher`)
+      .pipe(this._untilDestroyed())
   }
 
   add(item: Journal) {

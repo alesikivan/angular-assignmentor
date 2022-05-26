@@ -13,7 +13,7 @@ export class JournalsViewComponent implements OnInit {
 
   public preloader = true
 
-  public journal: Journal
+  public journal: any
 
   constructor(
     private route: ActivatedRoute,
@@ -29,15 +29,16 @@ export class JournalsViewComponent implements OnInit {
       this.journalsService.setActiveJournalId(id)
 
       this.journalsService.getByID(id)
-        .subscribe((journal: Journal) => {
-          this.journal = journal
-
+        .subscribe((request: any) => {
+          const { data } = request
+          this.journal = data
+          console.log(this.journal)
           this.preloader = false
 
           this.breadcrumbs.change([
             {link: ['/'], title: 'Главная'},
             {link: ['/', 'journals', 'index'], title: 'Все журналы'},
-            {link: ['#'], title: journal.title},
+            {link: ['#'], title: this.journal.name},
           ])
         })
     })

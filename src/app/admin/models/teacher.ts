@@ -1,6 +1,6 @@
 export interface TeacherModel {
   id: number,
-  name: string,
+  full_name: string,
   department: string,
   academicDegree?: string,
   academicTitle?: string,

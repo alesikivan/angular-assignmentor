@@ -6,9 +6,9 @@
 
 <ng-template #journalBlock>
   <div class="card bg-light mb-3" style="max-width: 18rem;">
-      <div class="card-header grade-book-title">{{journal.title}}</div>
+      <div class="card-header grade-book-title">{{journal.name}}</div>
       <div class="card-body">
-          <p class="card-text grade-book-teacher"><span>Преподаватель: </span>{{journal.teacher.name}}</p>
+          <p class="card-text grade-book-teacher"><span>Преподаватель: </span>{{journal.teacher.full_name}}</p>
       </div>
   </div>
   <button class="green-button" [routerLink]="['/', 'journals', 'create', journal.id]">Создать новую запись</button>
@@ -31,14 +31,14 @@
             *ngFor="let rec of journal.journalRecords; let i = index">
               <th scope="row">{{i + 1}}</th>
               <td>
-                  {{rec.date | date:'dd.MM.yyyy'}}
+                  {{rec.lesson_at | date:'dd.MM.yyyy'}}
               </td>
               <td>
-                {{rec.time}}
+                {{rec.lesson_at | date:'hh.mm'}}
               </td>
-              <td>{{rec.group}}</td>
+              <td>{{rec.group.name}}-{{rec.group.course.name}}</td>
               <td>{{rec.topic}}</td>
-              <td>{{rec.lessonType}}</td>
+              <td>{{rec.classType.name}}</td>
           </tr>
           <th *ngIf="!journal.journalRecords.length" colspan="6" class="special-item"><span>Записей пока нет</span></th>
       </tbody>

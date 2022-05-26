@@ -15,7 +15,7 @@ export class JournalsMenuComponent implements OnInit {
 
   preloader = true
   
-  public journals: Journal[] = []
+  public journals: any[] = []
 
   constructor(
     private journalsService: JournalsService,
@@ -28,6 +28,7 @@ export class JournalsMenuComponent implements OnInit {
           const { data } = response
           this.journals = data
           console.log(this.journals)
+          this.preloader = false
         },
         () => this.preloader = false
       )

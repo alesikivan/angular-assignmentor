@@ -20,8 +20,8 @@
             [class.active-item]="journal.id == activeJournal"
             (click)="openJournal(journal.id)"
             class="list-group-item grade-book-item">
-            <b>{{journal.title}}</b>
-            <span>{{journal.teacher.name}}</span>
+            <b>{{journal.name}}</b>
+            <span>{{journal?.teacher?.full_name}}</span>
         </li>
         <li
             [ngStyle]="{'cursor': 'default'}"
