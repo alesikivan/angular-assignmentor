@@ -38,9 +38,9 @@
           formControlName="time">
           <option value="Выбрать время..." disabled>Выбрать время...</option>
           <option
-            *ngFor="let t of recordsHelper?.time" 
-            value={{t}} 
-            selected="form.get('time')?.value == t">{{t}}</option>
+            *ngFor="let t of times" 
+            value={{t.value}} 
+            selected="form.get('time')?.value == t.value">{{t.value}}</option>
         </select>
         <div class="invalid-feedback">
             Неверный выбор времени

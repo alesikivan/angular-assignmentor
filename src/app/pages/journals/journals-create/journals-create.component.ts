@@ -26,6 +26,13 @@ export class JournalsCreateComponent implements OnInit {
 
   public blockSubmitButton = false
 
+  public times: any = [
+    { value: '08:30' },
+    { value: '10:05' },
+    { value: '11:55' },
+    { value: '13:30' },
+  ]
+
   constructor(
     private breadcrumbs: BreadcrumbsService,
     private journalsService: JournalsService,

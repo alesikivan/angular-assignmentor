@@ -44,7 +44,6 @@ export class JournalsViewComponent implements OnInit {
     })
   }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
 }
