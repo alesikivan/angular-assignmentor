@@ -103,7 +103,7 @@ setFormData(recordId: number) {
     this.breadcrumbs.change([
       {link: ['/'], title: 'Главная'},
       {link: ['/', 'journals', 'index'], title: 'Все журналы'},
-      {link: ['/', 'journals', 'view', String(journal.id)], title: journal.title},
+      {link: ['/', 'journals', 'view', String(journal.id)], title: journal.name},
       {link: ['#'], title: 'Обновить запись'},
     ])
   }

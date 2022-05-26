@@ -4,6 +4,6 @@ import { TeacherModel } from "./teacher";
 export interface Journal {
   id: number,
   teacher: TeacherModel,
-  title: string,
+  name: string,
   journalRecords: JournalRecord[]
 }
