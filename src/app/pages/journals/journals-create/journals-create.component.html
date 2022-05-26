@@ -51,14 +51,14 @@
           <label class="input-group-text sector">Группа</label>
       </div>
       <select 
-        [ngClass]="{'form-select': true, 'is-invalid': form.get('group')?.invalid && (form.get('group')?.dirty || form.get('group')?.touched)}"
+        [ngClass]="{'form-select': true, 'is-invalid': form.get('groupId')?.invalid && (form.get('groupId')?.dirty || form.get('groupId')?.touched)}"
         aria-label="Default select example"
-        formControlName="group">
+        formControlName="groupId">
         <option value="Выбрать группу..." disabled>Выбрать группу...</option>
         <option
-          *ngFor="let item of recordsHelper?.groups" 
-          value={{item}} 
-          selected="form.get('group')?.value == item">{{item}}</option>
+          *ngFor="let item of groups" 
+          value={{item.id}} 
+          selected="form.get('groupId')?.value == item.id">{{item.name}}-{{item.course.name}}</option>
       </select>
       <div class="invalid-feedback">
           Неверный выбор группы
@@ -70,14 +70,14 @@
           <label class="input-group-text sector">Тип занятия</label>
       </div>
       <select 
-        [ngClass]="{'form-select': true, 'is-invalid': form.get('lessonType')?.invalid && (form.get('lessonType')?.dirty || form.get('lessonType')?.touched)}"
+        [ngClass]="{'form-select': true, 'is-invalid': form.get('classType')?.invalid && (form.get('classType')?.dirty || form.get('classType')?.touched)}"
         aria-label="Default select example"
-        formControlName="lessonType">
+        formControlName="classType">
         <option value="Выбрать тип занятия..." disabled>Выбрать тип занятия...</option>
         <option
-          *ngFor="let item of recordsHelper?.types" 
-          value={{item}} 
-          selected="form.get('lessonType')?.value == item">{{item}}</option>
+          *ngFor="let item of classTypes" 
+          value={{item.id}} 
+          selected="form.get('classType')?.value == item.id">{{item.name}}</option>
       </select>
       <div class="invalid-feedback">
           Неверный выбор типа занятия

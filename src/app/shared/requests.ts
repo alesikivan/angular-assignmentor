@@ -17,8 +17,9 @@ export const requests = {
 
   getJournals: `${domen}/admin/journal/index`,
   getJournal: `${domen}/admin/journal/read`,
+  getJournalRecord: `${domen}/admin/journal-record/read`,
   deleteJournal: `${domen}/admin/journal/delete`,
-  addJournal: `${domen}/api/journals/add`,
+  addJournalRecord: `${domen}/admin/journal-record/create`,
   updateJournal: `${domen}/api/journals/update`,
   recordUpdate: `${domen}/api/journals/record-update`,
   recordRemove: `${domen}/api/journals/record-remove`,
@@ -61,4 +62,8 @@ export const requests = {
   deleteDepartment: `${domen}/api/departments/delete`,
   addDepartment: `${domen}/api/departments/add`,
   updateDepartment: `${domen}/api/departments/update`,
+
+  getGroups: `${domen}/admin/group/index`,
+
+  getClassTypes: `${domen}/admin/class-type/index`,
 }

@@ -20,7 +20,8 @@ export class JournalsCreateComponent implements OnInit {
 
   public form: FormGroup
 
-  public recordsHelper: any
+  public groups: any = []
+  public classTypes: any = []
 
   public preloader = false
 
@@ -51,28 +52,44 @@ export class JournalsCreateComponent implements OnInit {
 
       if (recordId != null) this.preloader = true
 
-      this.journalsService.helperData()
-        .subscribe(recordsHelper => {
-          // Set records data to inputs
-          this.recordsHelper = recordsHelper
-
-          this.setFormData(recordId)
+      this.journalsService.getGroups()
+        .subscribe(response => {
+          const { data } = response
+          this.groups = data
+          console.log(this.groups)
         })
 
+      this.journalsService.getClassTypes()
+        .subscribe(response => {
+          const { data } = response
+          this.classTypes = data
+          console.log(this.classTypes)
+        })
+
+      this.setFormData(recordId)
      })
   }
 
 formInit() {
   this.form = this.fb.group({
     id: [0, [Validators.required]],
-    journalId: [0, []],
     date: [new Date(), [Validators.required]],
+    journalId: [0, []],
     hours: [2, [Validators.required]],
     time: ['Выбрать время...', [Validators.required]],
-    group: ['Выбрать группу...', [Validators.required]],
-    lessonType: ['Выбрать тип занятия...', [Validators.required]],
+    groupId: ['Выбрать группу...', [Validators.required]],
+    classType: ['Выбрать тип занятия...', [Validators.required]],
     topic: ['', [Validators.required]],
   })
+}
+
+formatDate(date: any) {
+  let d = new Date(date)
+  let year = d.getFullYear()
+  let month = ('0' + (d.getMonth() + 1)).slice(-2)
+  let day = ('0' + d.getDate()).slice(-2)
+
+  return `${year}-${month}-${day}: ${this.form.get('time')?.value}`
 }
 
 setFormData(recordId: number) {
@@ -81,28 +98,39 @@ setFormData(recordId: number) {
     this.id = recordId
 
     // Get current journal by id
-    this.journalsService.getByID(this.journalId)
-      .subscribe((journal: Journal) => this.setRecord(journal, recordId))
+    this.journalsService.getRecordByID(this.id)
+      .subscribe((response: any) => {
+        const { data: record } = response
+        console.log(record)
+        this.preloader = false
+        this.setRecord(record)
+      })
     }
   }
 
-  setRecord(journal: Journal, recordId: number) {
-    const idx = journal.journalRecords.findIndex(r => r.id == recordId)
-    if (idx != null && idx != undefined) {
-      let record = journal.journalRecords[idx]
+  setRecord(record: any) {
+    // console.log(journal.journalRecords)
+    // const idx = journal.journalRecords.findIndex((r: any) => r.id == recordId)
+    // if (idx != null && idx != undefined) {
+      // let record = journal.journalRecords[idx]
 
       record.journalId = this.journalId
       record.date = new Date(record.date)
+      let time = (record.lesson_at).split(' ')[1].split(':')
+      time.pop()
+      time = time.join(':')
+      record.hours = time
+      record.time = time
 
       this.form.setValue( record )
 
       this.preloader = false
       
       // Set active class to current journal
-      this.journalsService.setActiveJournalId(journal.id)
+      this.journalsService.setActiveJournalId(record.journal_id)
 
-      this.updateBreadcrumbs(journal)
-    }
+      this.updateBreadcrumbs(record.journal)
+    // }
   }
 
   updateBreadcrumbs(journal: Journal) {
@@ -136,13 +164,22 @@ setFormData(recordId: number) {
   }
 
   addRecord() {
-    this.journalsService.add(this.form.value)
+    console.log(this.form.value)
+    const record = Object.assign(this.form.value, {
+      lessonAt: this.formatDate(this.form.get('date')?.value),
+      teacherId: 1,
+    })
+    console.log(record)
+    this.journalsService.add(record)
         .subscribe(
           () => {
             this.notifications.success('Объект успешно создан!')
             this.router.navigate(['/', 'journals', 'view', this.journalId]);
           },
-          () => this.notifications.danger('Что-то пошло не так, проверьте данные.'),
+          () => {
+            this.notifications.danger('Что-то пошло не так, проверьте данные.')
+            this.blockSubmitButton = false
+          },
           () => this.blockSubmitButton = false
         )
   }
