@@ -35,7 +35,8 @@ export class JournalsService {
   }
 
   add(item: Journal) {
-    return this.http.post<Journal[]>(`${requests.addJournal}`, {item}).pipe(this._untilDestroyed())
+    return this.http.post<Journal[]>(`${requests.addJournal}`, {item})
+    .pipe(this._untilDestroyed())
   } 
 
   update(item: Journal) {
