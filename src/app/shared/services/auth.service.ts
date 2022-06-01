@@ -5,7 +5,6 @@ import { User } from "../interfaces";
 import { catchError, tap } from 'rxjs/operators'
 import { NotificationsService } from "./notifications.service";
 import { requests } from "../requests";
-import jwt_decode from 'jwt-decode';
 import { TUntilDestroyed, UntilDestroyed } from "../decorators/until-destroyed";
 
 @Injectable({
