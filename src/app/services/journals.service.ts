@@ -10,6 +10,11 @@ import { JournalRecord } from '../admin/models/journalRecord';
   providedIn: 'root'
 })
 
+// export interface Group {
+//   id: number,
+//   name: string
+// } 
+
 export class JournalsService {
 
   public activeJournal$: Subject<number> = new Subject<number>()
@@ -24,6 +29,14 @@ export class JournalsService {
     this.activeJournal$.next(id)
   }
 
+  getGroups() {
+    return this.http.get<any>(`${requests.getGroups}?expand=course`).pipe(this._untilDestroyed())
+  }
+
+  getClassTypes() {
+    return this.http.get<any>(`${requests.getClassTypes}?expand=class_type`).pipe(this._untilDestroyed())
+  }
+
   getAll() {
     return this.http.get<Journal[]>(`${requests.getJournals}?expand=teacher.academicTitle`).pipe(this._untilDestroyed())
   }
@@ -34,10 +47,13 @@ export class JournalsService {
       .pipe(this._untilDestroyed())
   }
 
+  getRecordByID(id: number): any {
+    return this.http.get<any>(`${requests.getJournalRecord}/${id}?expand=journal`).pipe(this._untilDestroyed())
+  }
+
   add(item: Journal) {
-    return this.http.post<Journal[]>(`${requests.addJournal}`, {item})
-    .pipe(this._untilDestroyed())
-  } 
+    return this.http.post<Journal[]>(`${requests.addJournalRecord}`, item).pipe(this._untilDestroyed())
+  }
 
   update(item: Journal) {
     return this.http.post<Journal[]>(`${requests.updateJournal}/${item.id}`, {item}).pipe(this._untilDestroyed())
@@ -52,10 +68,10 @@ export class JournalsService {
   }
   
   recordUpdate(item: JournalRecord) {
-    return this.http.post(`${requests.recordUpdate}`, {item}).pipe(this._untilDestroyed())
+    return this.http.post(`${requests.updateournalRecord}?id=${item.id}`, item).pipe(this._untilDestroyed())
   }
 
-  recordRemove(item: JournalRecord) {
-    return this.http.post(`${requests.recordRemove}`, {item}).pipe(this._untilDestroyed())
+  recordRemove(id: string) {
+    return this.http.post(`${requests.removeJournalRecord}?id=${id}`, { id }).pipe(this._untilDestroyed())
   }
 }

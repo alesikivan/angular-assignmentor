@@ -39,14 +39,13 @@
         <label class="input-group-text sector">Вид работы</label>
     </div>
     <select
-      [ngModel]="workTypeItem"
       [ngClass]="{'form-select': true, 'is-invalid': form.get('workTypes')?.invalid && (form.get('workTypes')?.dirty || form.get('workTypes')?.touched)}"
-      formControlName="workTypes">
+      formControlName="workTypeID">
       <option value="Выбрать вид работы..." disabled>Выбрать вид работы...</option>
       <option
         *ngFor="let item of workTypes" 
         value={{item.id}} 
-        selected="form.get('workTypes')?.value == item.type">{{item.serial_number}} {{item.description}}</option>
+        selected="form.get('workTypes')?.value == item.id">{{item.serial_number}} {{item.description}}</option>
     </select>
     <div class="invalid-feedback">Проверьте выбранное поле</div>
 </div>

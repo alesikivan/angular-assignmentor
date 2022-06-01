@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { User } from 'src/app/shared/interfaces';
+import { requests } from 'src/app/shared/requests';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { BreadcrumbsService } from 'src/app/shared/services/breadcrumbs.service';
 import { NotificationsService } from 'src/app/shared/services/notifications.service';
@@ -23,13 +24,12 @@ export class LoginPageComponent implements OnInit {
     private notifications: NotificationsService
   ) { 
     this.form = new FormGroup({
-      email: new FormControl(null, [
+      username: new FormControl(null, [
         Validators.required,
-        Validators.email
       ]),
       password: new FormControl(null, [
         Validators.required,
-        Validators.minLength(6)
+        Validators.minLength(3)
       ])
     })
   }
@@ -48,24 +48,21 @@ export class LoginPageComponent implements OnInit {
 
     this.buttonWaiter = true
 
-    const user: User = {
-      email: this.form.value.email,
+    const user = {
+      username: this.form.value.username,
       password: this.form.value.password
     }
 
     this.auth.login(user)
       .subscribe(
-        () => {
-          this.form.reset()
+        (res) => {
+          console.log(res)
           this.router.navigate(['/'])
           this.buttonWaiter = false
 
           this.notifications.success('Успешный вход в систему!')
         },
-        () => {
-          this.buttonWaiter = false
-          location.reload()
-        }
+        (e) => this.buttonWaiter = false
       )
   }
 

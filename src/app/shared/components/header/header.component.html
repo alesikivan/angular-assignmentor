@@ -19,13 +19,17 @@
           </li>
           <!-- <li class="nav-item" *ngIf="!permission">
             <a class="nav-link" [routerLink]="['/admin', 'register']">Регистрация</a>
-          </li>
+          </li> -->
           <li *ngIf="!permission; else logOut" >
             <a class="btn login blue-button" [routerLink]="['/admin', 'login']">Войти</a>
-          </li> -->
+          </li>
           <ng-template #logOut>
             <li>
-              <a class="btn logout blue-button" (click)="logout()">Выйти</a>
+              <a 
+                class="btn logout blue-button" 
+                (click)="logout()">
+                Выйти {{ (username.length > 10) ? (username | slice:0:10) + '..' : (username) }}
+              </a>
             </li>
           </ng-template>
         </ul>

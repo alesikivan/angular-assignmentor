@@ -1,26 +1,19 @@
-<div
-  *ngIf="auth.error$ | async as error"
-  class="alert alert-danger login-notification"
-  role="alert">
-  {{error}}
-</div>
-
 <form class="login-form" [formGroup]="form" (ngSubmit)="submit()" *ngIf="!this.auth.isAuthenticated(); else message">
-  <div class="form-group" [ngClass]="{invalid: form.get('email')?.touched && form.get('email')?.invalid}">
-    <label for="email">Email</label>
+  <div class="form-group" [ngClass]="{invalid: form.get('username')?.touched && form.get('username')?.invalid}">
+    <label for="username">Имя</label>
     <input
-      formControlName="email"
-      type="email"
+      formControlName="username"
+      type="username"
       class="form-control"
-      id="email"
-      placeholder="Введите email">
-    <div *ngIf="form.get('email')?.touched && form.get('email')?.invalid" class="validation">
+      id="username"
+      placeholder="Введите username">
+    <div *ngIf="form.get('username')?.touched && form.get('username')?.invalid" class="validation">
       <small
-        *ngIf="form.get('email')?.errors?.['required']"
+        *ngIf="form.get('username')?.errors?.['required']"
         class="form-text">Ввведите почту</small>
       <small
-        *ngIf="form.get('email')?.errors?.['email']"
-        class="form-text">Неверный формат email</small>
+        *ngIf="form.get('username')?.errors?.['username']"
+        class="form-text">Неверный формат username</small>
     </div>
   </div>
   <div class="form-group" [ngClass]="{invalid: form.get('password')?.touched && form.get('password')?.invalid}">

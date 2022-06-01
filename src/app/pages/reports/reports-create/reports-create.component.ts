@@ -31,8 +31,6 @@ export class ReportsCreateComponent implements OnInit {
 
   public workTypes: any = []
 
-  public workTypeItem: any
-
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -59,7 +57,7 @@ export class ReportsCreateComponent implements OnInit {
       description: ['', [Validators.required]],
       teacher_id: ['Выбрать...', [Validators.required]],
       level: ['brest', [Validators.required]],
-      workTypes: ['Выбрать вид работы...', [Validators.required]],
+      workTypeID: ['Выбрать вид работы...', [Validators.required]],
     })
   } 
 
@@ -97,27 +95,13 @@ export class ReportsCreateComponent implements OnInit {
       .subscribe((response: any) => {
         const { data } = response
         this.workTypes = data
-        console.log(this.workTypes)
         // this.setFormData(params)
       })
   }
 
-  // setFormData(params: any) {
-  //   this.id = params['id']
-    
-  //   if (params['id'] != null) {
-  //     this.form.get('id')?.setValue(params['id'])
-
-  //     this.teacherService.getByID(params['id'])
-  //       .subscribe((item: TeacherModel) => {
-  //         this.subject = item
-          
-  //         this.form.setValue(item)
-
-  //         this.preloader = false
-  //       })
-  //   }
-  // }
+  getWorkTypeById(id: string) {
+    return this.workTypes.find((workType: any) => workType.id == id)
+  }
 
   save() {
     if (this.form.invalid) return;
@@ -127,16 +111,14 @@ export class ReportsCreateComponent implements OnInit {
     this.notifications.default('Отправили и проверяем...')
 
     this.create()
-
-    // this.form.get('id')?.value === 0 ? this.create() : this.update()
   }
 
   create() {
 
     let path = ''
-    const { id, type } = this.workTypeItem
     const data = this.form.value
     const { teacher_id } = data
+    const { id: type_id, type } = this.getWorkTypeById(data.workTypeID)
 
     switch(type) {
       case 'educational':
@@ -149,40 +131,18 @@ export class ReportsCreateComponent implements OnInit {
     }
 
     const report = Object.assign(data, { 
-      teachers: [teacher_id],
-      type_id: id
+      teachers: [teacher_id], type_id
     })
 
     this.reportsService.createReport(path, report)
+      .subscribe(
+        (responce) => {
+          this.notifications.success('Успешное создание')
+          this.router.navigate(['/'])
+        },
+        () => this.blockSubmitButton = false
+      )
   }
-
-  // update() {
-  //   this.teacherService.update(this.form.value)
-  //   .subscribe(
-  //     () => {
-  //       this.notifications.success('Объект успешно обновлен!')
-  //       this.router.navigate(['/admin', 'teachers', 'index']);
-  //     },
-  //     () => this.notifications.danger('Что-то пошло не так, проверьте данные.'),
-  //     () => this.blockSubmitButton = false
-  //   )
-  // }
-
-  // removeRecord() {
-  //   this.blockSubmitButton = true
-
-  //   this.notifications.default('Удаляем запись...')
-    
-  //   this.teacherService.remove(this.form.value)
-  //   .subscribe(
-  //     () => {
-  //       this.notifications.success('Объект успешно удален!')
-  //       this.router.navigate(['/admin', 'teachers', 'index']);
-  //     },
-  //     () => this.notifications.danger('Что-то пошло не так...'),
-  //     () => this.blockSubmitButton = false
-  //   )
-  // }
 
   setDate(): string {
     return new Date().toLocaleDateString()

@@ -4,15 +4,16 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Journal } from 'src/app/admin/models/journal';
 import { JournalRecord } from 'src/app/admin/models/journalRecord';
 import { JournalsService } from 'src/app/services/journals.service';
+import { AuthService } from 'src/app/shared/services/auth.service';
 import { BreadcrumbsService } from 'src/app/shared/services/breadcrumbs.service';
 import { NotificationsService } from 'src/app/shared/services/notifications.service';
 
 @Component({
-  selector: 'app-journals-create',
-  templateUrl: './journals-create.component.html',
-  styleUrls: ['./journals-create.component.scss']
+  selector: 'app-records-create',
+  templateUrl: './records-create.component.html',
+  styleUrls: ['./records-create.component.scss']
 })
-export class JournalsCreateComponent implements OnInit {
+export class RecordsCreateComponent implements OnInit {
 
   public id = 0;
 
@@ -21,11 +22,14 @@ export class JournalsCreateComponent implements OnInit {
   public form: FormGroup
 
   public groups: any = []
+
   public classTypes: any = []
 
   public preloader = false
 
   public blockSubmitButton = false
+
+  public teacher_id = 1
 
   public times: any = [
     { value: '08:30' },
@@ -41,6 +45,7 @@ export class JournalsCreateComponent implements OnInit {
     private fb: FormBuilder,
     private notifications: NotificationsService,
     private router: Router,
+    private auth: AuthService,
   ) {
     this.formInit()
 
@@ -65,6 +70,13 @@ export class JournalsCreateComponent implements OnInit {
           this.classTypes = data
           console.log(this.classTypes)
         })
+
+      if (this.auth.user) 
+        this.auth.user
+          .subscribe((user: any) => {
+            this.teacher_id = user?.teacher?.id || ''
+            console.log(this.teacher_id)
+          })
 
       this.setFormData(recordId)
      })
@@ -177,8 +189,6 @@ setFormData(recordId: number) {
       teacher_id: 1,
     })
 
-    console.log(record)
-
     this.journalsService.add(record)
         .subscribe(
           () => {
@@ -194,13 +204,18 @@ setFormData(recordId: number) {
   }
 
   updateRecord() {
-    this.journalsService.recordUpdate(this.form.value)
+    const record = Object.assign(this.form.value, {
+      lesson_at: this.formatDate(this.form.get('date')?.value),
+      // WARNING
+      teacher_id: 1,
+    })
+    
+    this.journalsService.recordUpdate(record)
       .subscribe(
         () => {
           this.notifications.success('Объект успешно обновлен!')
           this.router.navigate(['/', 'journals', 'view', this.journal_id]);
         },
-        () => this.notifications.danger('Что-то пошло не так, проверьте данные.'),
         () => this.blockSubmitButton = false
       )
   }
@@ -210,13 +225,12 @@ setFormData(recordId: number) {
 
     this.notifications.default('Удаляем запись...')
     
-    this.journalsService.recordRemove(this.form.value)
+    this.journalsService.recordRemove(this.form.value.id)
       .subscribe(
         () => {
           this.notifications.success('Объект успешно удален!')
           this.router.navigate(['/', 'journals', 'view', this.journal_id]);
         },
-        () => this.notifications.danger('Что-то пошло не так...'),
         () => this.blockSubmitButton = false
       )
   }

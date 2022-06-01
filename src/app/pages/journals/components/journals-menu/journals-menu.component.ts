@@ -25,13 +25,13 @@ export class JournalsMenuComponent implements OnInit {
     this.journalsService.getAll()
       .subscribe(
         (response: any) => {
-          const { data } = response
-          this.journals = data
-          console.log(this.journals)
+          this.journals = response.data
+
           this.preloader = false
         },
         () => this.preloader = false
       )
+      
     this.journalsService.activeJournal$
       .subscribe(id => this.activeJournal = id)
   }

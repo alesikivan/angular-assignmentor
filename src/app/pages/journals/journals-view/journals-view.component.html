@@ -11,7 +11,7 @@
           <p class="card-text grade-book-teacher"><span>Преподаватель: </span>{{journal.teacher.full_name}}</p>
       </div>
   </div>
-  <button class="green-button" [routerLink]="['/', 'journals', 'create', journal.id]">Создать новую запись</button>
+  <button class="green-button" [routerLink]="['/', 'journals', 'records', 'create', journal.id]">Создать новую запись</button>
   <br><br>
   <table class="table table-bordered grade-book-table">
       <thead>
@@ -26,7 +26,7 @@
       </thead>
       <tbody>
           <tr 
-          [routerLink]="['/', 'journals', 'update', journal.id, 'record', rec.id]"
+          [routerLink]="['/', 'journals', 'records', 'update', journal.id, 'record', rec.id]"
             class="grade-book-recording" 
             *ngFor="let rec of journal.journalRecords; let i = index">
               <th scope="row">{{i + 1}}</th>
@@ -34,7 +34,7 @@
                   {{rec.lesson_at | date:'dd.MM.yyyy'}}
               </td>
               <td>
-                {{rec.lesson_at | date:'hh.mm'}}
+                {{rec.lesson_at | date:'HH.mm'}}
               </td>
               <td>{{rec.group.name}}-{{rec.group.course.name}}</td>
               <td>{{rec.topic}}</td>

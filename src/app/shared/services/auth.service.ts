@@ -1,27 +1,36 @@
-import { HttpClient, HttpErrorResponse } from "@angular/common/http";
+import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { Observable, Subject, throwError } from "rxjs";
-import { environment } from "src/environments/environment";
-import { FireBaseAuthResponse, User } from "../interfaces";
+import { BehaviorSubject, Observable, Subject, throwError } from "rxjs";
+import { User } from "../interfaces";
 import { catchError, tap } from 'rxjs/operators'
 import { NotificationsService } from "./notifications.service";
+import { requests } from "../requests";
+import jwt_decode from 'jwt-decode';
+import { TUntilDestroyed, UntilDestroyed } from "../decorators/until-destroyed";
 
 @Injectable({
   providedIn: 'root'
 })
 
 export class AuthService {
-  public error$: Subject<string> = new Subject<string>()
 
-  user: any
+  @UntilDestroyed() private _UntilDestroyed: TUntilDestroyed;
 
-  public isAuth: Subject<boolean> = new Subject<boolean>()
+  public isAuth$: Subject<boolean> = new Subject<boolean>()
+
+  public userSubject$: BehaviorSubject<User | null> = new BehaviorSubject<User | null>(null)
+
+  public user: Observable<User | null> = this.userSubject$.asObservable()
+
+  public test$: Subject<string> = new Subject<string>()
 
   constructor(
     private http: HttpClient,
     private notifications: NotificationsService
   ) {
-    this.setUser({idToken: localStorage.getItem('token') })
+    // User init
+    let token = this.token
+    if (token) this.userInit(token)
   }
 
   get token(): string | null {
@@ -34,46 +43,70 @@ export class AuthService {
     return localStorage.getItem('token')
   }
 
-  login (user: User): Observable<any> {
-    user.returnSecureToken = true
-    return this.http.post(`https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${environment.apiKey}`, user)
+  login (user: any): Observable<any> {
+    return this.http.post(requests.login, user)
       .pipe(
         tap(this.setToken),
-        tap(this.setUser),
-        tap(this.setMode),
-        catchError(this.handleError.bind(this))
+        tap(this.setUser.bind(this)),
+        tap(this.setMode.bind(this)),
+        catchError(this.handleError.bind(this)),
+        this._UntilDestroyed()
       )
   }
 
-  register(user: User) {
-    return this.http.post(`http://localhost:3333/api/custom/register`, user)
-      .pipe(
-        catchError(this.handleError.bind(this))
-      )
+  // register(user: User) {
+  //   return this.http.post(requests.register, user)
+  //     .pipe(
+  //       catchError(this.handleError.bind(this)),
+  //       this._UntilDestroyed()
+  //     )
+  // }
+
+  userInit(token: string) {
+    this.setUser(
+      { data: { access_toke: token } }
+    )
   }
 
   setAuthMode(mode: boolean) {
-    this.isAuth.next(mode)
+    this.isAuth$.next(mode)
   }
 
-  setUser(res: any) {
-    if (res.idToken) {
-      let user = JSON.parse(atob(res.idToken.split('.')[1]))
+  setUser(res: any): void {
+    const { 
+      data, 
+      data: { 
+        access_token: token = '',
+      }
+    } = res
 
-      this.user = Object.assign(user, {
-        roles: ['user', 'admin']
-      })
+    if (token) {
+      const roles = res?.data?.rbac?.roles
+
+      const user = roles ? Object.assign(data, { roles }) : data
+
+      // console.log(user)
+      this.userSubject$.next(user)
     }
   }
 
-  setMode(res: any) {
-    this.setAuthMode(!!res.idToken)    
+  setMode(res: any): void {
+    const { data: { access_token: token = '' } } = res
+
+    this.setAuthMode(!!token)    
   }
 
   logout() {
-    this.setToken(null)
+    const data = { 
+      data: { 
+        token: null
+      } 
+    }
+
+    this.setToken(data)
+    
     this.setAuthMode(false)
-    this.notifications.success('Успешный выход из системы')
+    this.notifications.success('Log out successfuly!')
   }
 
   isAuthenticated(): boolean {
@@ -81,30 +114,34 @@ export class AuthService {
   }
 
   hasRoles(roles: string[]): boolean {
-    if (this.user) {
-      roles = roles.map(role => role.toUpperCase())
-      let userRoles = this.user.roles.map((role: any) => role.toUpperCase())
+    roles = roles.map((role: string) => role.toUpperCase())
 
-      return userRoles.includes(...roles)
-    }
+    let flag = false
+    this.user.subscribe((user: any) => {
+      if (user && user.roles) {
+        user.roles.forEach((role: string) => {
+          if (roles.includes(role.toUpperCase())) flag = true
+        })
+      }
+    })
 
-    return false
+    return flag
   }
 
-  private handleError(error: HttpErrorResponse) {
-    const { message } = error.error.error
-
-    this.notifications.danger(message)
-
-    this.error$.next(message)
-
+  private handleError(error: any) {
+    console.log(error)
     return throwError(error)
   }
 
-  private setToken(res: FireBaseAuthResponse | any) {
-    if (res) {
-      const expDate = new Date(new Date().getTime() + Number(res.expiresIn) * 1000)
-      localStorage.setItem('token', res.idToken)
+  setToken(res: any): void {
+    const { data: { 
+      access_token: token = ''
+     } } = res
+
+    if (token) {
+      const expDate = new Date(new Date().getTime() + Number(10000) * 1000 * 24)
+
+      localStorage.setItem('token', token)
       localStorage.setItem('token-exp', expDate.toString())
     } else {
       localStorage.clear()

@@ -81,29 +81,10 @@ export class DocsCreateComponent implements OnInit {
 
     this.reportsService.getTeachers({})
       .subscribe((response: any) => {
-        const { data } = response
-        this.teachers = data
-        console.log(this.teachers)
-        // this.setFormData(params)
+        this.teachers = response.data
       })
   }
 
-  // setFormData(params: any) {
-  //   this.id = params['id']
-    
-  //   if (params['id'] != null) {
-  //     this.form.get('id')?.setValue(params['id'])
-
-  //     this.teacherService.getByID(params['id'])
-  //       .subscribe((item: TeacherModel) => {
-  //         this.subject = item
-          
-  //         this.form.setValue(item)
-
-  //         this.preloader = false
-  //       })
-  //   }
-  // }
 
   save() {
     if (this.form.invalid) return;
@@ -113,8 +94,6 @@ export class DocsCreateComponent implements OnInit {
     this.notifications.default('Отправили и проверяем...')
 
     this.create()
-
-    // this.form.get('id')?.value === 0 ? this.create() : this.update()
   }
 
   create() {
@@ -132,36 +111,9 @@ export class DocsCreateComponent implements OnInit {
         path = requests.methodicalDoc
     }
 
+    // Redirect to new page
     this.reportsService.createDoc(path, this.form.value)
   }
-
-  // update() {
-  //   this.teacherService.update(this.form.value)
-  //   .subscribe(
-  //     () => {
-  //       this.notifications.success('Объект успешно обновлен!')
-  //       this.router.navigate(['/admin', 'teachers', 'index']);
-  //     },
-  //     () => this.notifications.danger('Что-то пошло не так, проверьте данные.'),
-  //     () => this.blockSubmitButton = false
-  //   )
-  // }
-
-  // removeRecord() {
-  //   this.blockSubmitButton = true
-
-  //   this.notifications.default('Удаляем запись...')
-    
-  //   this.teacherService.remove(this.form.value)
-  //   .subscribe(
-  //     () => {
-  //       this.notifications.success('Объект успешно удален!')
-  //       this.router.navigate(['/admin', 'teachers', 'index']);
-  //     },
-  //     () => this.notifications.danger('Что-то пошло не так...'),
-  //     () => this.blockSubmitButton = false
-  //   )
-  // }
 
   setDate(): string {
     return new Date().toLocaleDateString()

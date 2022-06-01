@@ -1,6 +1,7 @@
 import { HttpErrorResponse } from "@angular/common/http";
 
 export interface User {
+  id?: string,
   username?: string,
   email: string,
   password: string,
@@ -51,3 +52,4 @@ export interface AppNotification {
   date: any,
   status?: string
 }
+

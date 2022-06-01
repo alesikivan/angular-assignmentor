@@ -7,14 +7,13 @@ import { JournalsIndexComponent } from './pages/journals/journals-index/journals
 import { JournalsLayoutComponent } from './pages/journals/journals-layout/journals-layout.component';
 import { JournalsViewComponent } from './pages/journals/journals-view/journals-view.component';
 import { NotFoundPageComponent } from './pages/not-found-page/not-found-page.component';
+import { RecordsCreateComponent } from './pages/records/records-create/records-create.component';
 import { ReportsCreateComponent } from './pages/reports/reports-create/reports-create.component';
 import { MainLayoutComponent } from './shared/layouts/main-layout/main-layout.component';
 import { AuthGuard } from './shared/services/auth.guard';
 import { RolesGuard } from './shared/services/roles.guard';
 
 let roles = ['admin']
-
-//  => []
 
 const routes: Routes = [
   {
@@ -31,8 +30,10 @@ const routes: Routes = [
         {path: 'update/:id/record/:recordId', component: JournalsCreateComponent, canActivate: [], data: {roles}},
         {path: 'create/:id', component: JournalsCreateComponent, canActivate: [], data: {roles}},
         {path: 'view/:id', component: JournalsViewComponent, canActivate: [], data: {roles}},
+        {path: 'records/create/:id', component: RecordsCreateComponent, canActivate: []},
+        {path: 'records/update/:id/record/:recordId', component: RecordsCreateComponent, canActivate: []},
       ]},
-      {path: 'index', component: JournalsIndexComponent, canActivate: [], data: {roles}},
+      // {path: 'index', component: JournalsIndexComponent, canActivate: [], data: {roles}},
 
       {path: 'reports/create', component: ReportsCreateComponent, canActivate: []},
       {path: 'docs/create', component: DocsCreateComponent, canActivate: []},

@@ -1,15 +1,9 @@
-<button
-  [routerLink]="['/', 'journals']" 
-  type="button" 
-  class="btn input-group-text back-button blue-button cancel-button">Вернуться к журналам</button>
-
-<!-- <div class="preview-blocks" *ngIf="preloader; else journalBlock">
+<div class="preview-blocks" *ngIf="preloader; else journalBlock">
   <preview-block height="90px" width="30%"></preview-block>
   <preview-block height="90px"></preview-block>
   <preview-block height="90px"></preview-block>
 </div>
 
-  
 <ng-template #journalBlock>
   <button
   [routerLink]="['/', 'journals', 'view', journal_id]" 
@@ -115,4 +109,4 @@
         Удалить запись  
       </button>
   </form>
-</ng-template> -->
+</ng-template>

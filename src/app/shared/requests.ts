@@ -1,8 +1,9 @@
-const domen = 'http://localhost:3333'
+const domen = 'http://localhost'
 
 export const requests = {
 
   test: `${domen}/api/reports/test`,
+  login: `${domen}/site/login`,
 
   educationalDoc: `${domen}/documentBuilder/site/educational-work`,
   scientificDoc: `${domen}/documentBuilder/site/scientific-work`,
@@ -17,8 +18,11 @@ export const requests = {
 
   getJournals: `${domen}/admin/journal/index`,
   getJournal: `${domen}/admin/journal/read`,
+  getJournalRecord: `${domen}/admin/journal-record/read`,
   deleteJournal: `${domen}/admin/journal/delete`,
-  addJournal: `${domen}/api/journals/add`,
+  addJournalRecord: `${domen}/admin/journal-record/create`,
+  updateournalRecord: `${domen}/admin/journal-record/update`,
+  removeJournalRecord: `${domen}/admin/journal-record/delete`,
   updateJournal: `${domen}/api/journals/update`,
   recordUpdate: `${domen}/api/journals/record-update`,
   recordRemove: `${domen}/api/journals/record-remove`,
@@ -61,4 +65,8 @@ export const requests = {
   deleteDepartment: `${domen}/api/departments/delete`,
   addDepartment: `${domen}/api/departments/add`,
   updateDepartment: `${domen}/api/departments/update`,
+
+  getGroups: `${domen}/admin/group/index`,
+
+  getClassTypes: `${domen}/admin/class-type/index`,
 }

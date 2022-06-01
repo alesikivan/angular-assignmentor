@@ -56,20 +56,20 @@ export class RegisterComponent implements OnInit {
       password: this.form.value.password
     }
 
-    this.auth.register(user)
-      .subscribe(
-        () => {
-          this.form.reset()
-          this.router.navigate(['/login'])
-          this.buttonWaiter = false
+    // this.auth.register(user)
+    //   .subscribe(
+    //     () => {
+    //       this.form.reset()
+    //       this.router.navigate(['/login'])
+    //       this.buttonWaiter = false
 
-          this.notifications.success('Успешная регистрация!')
-        },
-        (e) => {
-          this.buttonWaiter = false
-          // location.reload()
-        }
-      )
+    //       this.notifications.success('Успешная регистрация!')
+    //     },
+    //     (e) => {
+    //       this.buttonWaiter = false
+    //       // location.reload()
+    //     }
+    //   )
   }
 
 }

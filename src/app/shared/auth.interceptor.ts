@@ -25,9 +25,9 @@ export class AuthInterceptor implements HttpInterceptor {
   ): Observable<HttpEvent<any>>{
     if (this.auth.isAuthenticated()) {
       req = req.clone({
-        setParams: {
-          auth: this.auth.token || ''
-        }
+        headers: req.headers.append(
+          'Authorization', `Bearer ${this.auth.token}`
+        )
       })
     }
 
@@ -35,7 +35,13 @@ export class AuthInterceptor implements HttpInterceptor {
       .pipe(
         catchError((error: HttpErrorResponse) => {
 
-          this.notifications.danger(error?.error?.error?.message)
+          if (Array.isArray(error?.error)) {
+            error?.error.forEach((e: any) => {
+              this.notifications.danger(e.message)
+            })
+          } else {
+            this.notifications.danger(error?.message)
+          }
 
           if (error.status === 401) {
             this.auth.logout()

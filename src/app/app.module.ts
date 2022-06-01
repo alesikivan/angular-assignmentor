@@ -27,6 +27,7 @@ import { JournalsMenuComponent } from './pages/journals/components/journals-menu
 import { CalendarModule } from 'primeng/calendar';
 import { ReportsCreateComponent } from './pages/reports/reports-create/reports-create.component';
 import { DocsCreateComponent } from './pages/docs/docs-create/docs-create.component';
+import { RecordsCreateComponent } from './pages/records/records-create/records-create.component';
 
 const INTERCEPTOR_PROVIDER: Provider = {
   provide: HTTP_INTERCEPTORS,
@@ -48,6 +49,7 @@ const INTERCEPTOR_PROVIDER: Provider = {
     JournalsMenuComponent,
     ReportsCreateComponent,
     DocsCreateComponent,
+    RecordsCreateComponent,
   ],
 
   imports: [

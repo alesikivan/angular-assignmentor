@@ -11,11 +11,17 @@ export class HeaderComponent implements OnInit {
 
   public permission = false
 
+  public username: string = ''
+
   constructor(
     private auth: AuthService,
   ) {
-    this.auth.isAuth
+    this.auth.isAuth$
       .subscribe(mode => this.permission = mode)
+    
+    if (this.auth.user) 
+      this.auth.user
+        .subscribe((user: any) => this.username = user?.username || '')
   }
 
   logout(): void {
