@@ -39,52 +39,55 @@ import { DepartmentsIndexComponent } from './pages/departments/departments-index
 
 let roles = ['admin']
 
+// Защита выглядит вот так
+// {path: 'dashboard', component: DashboardPageComponent, canActivate: [AuthGuard, RolesGuard], data: {roles}}
+
 const routes: Routes = [
   {
     path: '', component: AdminLayoutComponent, children: [
       {path: '', redirectTo: '/admin/dashboard', pathMatch: 'full'},
-      {path: 'dashboard', component: DashboardPageComponent, canActivate: [AuthGuard, RolesGuard], data: {roles}},
+      {path: 'dashboard', component: DashboardPageComponent},
       {path: 'login', component: LoginPageComponent},
       {path: 'register', component: RegisterComponent},
       {path: 'user', children: [
         {path: '', redirectTo: '/user/index', pathMatch: 'full'},
-        {path: 'index', component: UserIndexComponent, canActivate: [AuthGuard, RolesGuard], data: {roles}},
-        {path: 'view/:id', component: UserViewComponent, canActivate: [AuthGuard, RolesGuard], data: {roles}},
-        {path: 'create', component: UserCreateComponent, canActivate: [AuthGuard, RolesGuard], data: {roles}},
-        {path: 'update/:id', component: UserCreateComponent, canActivate: [AuthGuard, RolesGuard], data: {roles}},
+        {path: 'index', component: UserIndexComponent},
+        {path: 'view/:id', component: UserViewComponent},
+        {path: 'create', component: UserCreateComponent},
+        {path: 'update/:id', component: UserCreateComponent},
       ]},
       {path: 'news', children: [
         {path: '', redirectTo: '/news/index', pathMatch: 'full'},
-        {path: 'index', component: NewsIndexComponent, canActivate: [AuthGuard, RolesGuard], data: {roles}},
-        {path: 'update/:id', component: NewsCreateComponent, canActivate: [AuthGuard, RolesGuard], data: {roles}},
-        {path: 'create', component: NewsCreateComponent, canActivate: [AuthGuard, RolesGuard], data: {roles}},
-        {path: 'view/:id', component: NewsViewComponent, canActivate: [AuthGuard, RolesGuard], data: {roles}},
+        {path: 'index', component: NewsIndexComponent},
+        {path: 'update/:id', component: NewsCreateComponent},
+        {path: 'create', component: NewsCreateComponent},
+        {path: 'view/:id', component: NewsViewComponent},
       ]},
       {path: 'teachers', children: [
         {path: '', redirectTo: '/teachers/index', pathMatch: 'full'},
-        {path: 'index', component: TeachersIndexComponent, canActivate: [AuthGuard, RolesGuard], data: {roles}},
-        {path: 'update/:id', component: TeachersCreateComponent, canActivate: [AuthGuard, RolesGuard], data: {roles}},
-        {path: 'create', component: TeachersCreateComponent, canActivate: [AuthGuard, RolesGuard], data: {roles}},
-        {path: 'view/:id', component: TeachersViewComponent, canActivate: [AuthGuard, RolesGuard], data: {roles}},
+        {path: 'index', component: TeachersIndexComponent},
+        {path: 'update/:id', component: TeachersCreateComponent},
+        {path: 'create', component: TeachersCreateComponent},
+        {path: 'view/:id', component: TeachersViewComponent},
       ]},
       {path: 'academic-degries', children: [
         {path: '', redirectTo: '/academic-degries/index', pathMatch: 'full'},
-        {path: 'index', component: AcademicDegriesIndexComponent, canActivate: [AuthGuard, RolesGuard], data: {roles}},
-        {path: 'update/:id', component: AcademicDegriesCreateComponent, canActivate: [AuthGuard, RolesGuard], data: {roles}},
-        {path: 'create', component: AcademicDegriesCreateComponent, canActivate: [AuthGuard, RolesGuard], data: {roles}},
-        {path: 'view/:id', component: AcademicDegriesViewComponent, canActivate: [AuthGuard, RolesGuard], data: {roles}},
+        {path: 'index', component: AcademicDegriesIndexComponent},
+        {path: 'update/:id', component: AcademicDegriesCreateComponent},
+        {path: 'create', component: AcademicDegriesCreateComponent},
+        {path: 'view/:id', component: AcademicDegriesViewComponent},
       ]},
       {path: 'academic-titles', children: [
         {path: '', redirectTo: '/academic-titles/index', pathMatch: 'full'},
-        {path: 'index', component: AcademicTitlesIndexComponent, canActivate: [AuthGuard, RolesGuard], data: {roles}},
-        {path: 'update/:id', component: AcademicTitlesCreateComponent, canActivate: [AuthGuard, RolesGuard], data: {roles}},
-        {path: 'create', component: AcademicTitlesCreateComponent, canActivate: [AuthGuard, RolesGuard], data: {roles}},
+        {path: 'index', component: AcademicTitlesIndexComponent},
+        {path: 'update/:id', component: AcademicTitlesCreateComponent},
+        {path: 'create', component: AcademicTitlesCreateComponent},
       ]},
       {path: 'departments', children: [
         {path: '', redirectTo: '/departments/index', pathMatch: 'full'},
-        {path: 'index', component: DepartmentsIndexComponent, canActivate: [AuthGuard, RolesGuard], data: {roles}},
-        {path: 'update/:id', component: DepartmentsCreateComponent, canActivate: [AuthGuard, RolesGuard], data: {roles}},
-        {path: 'create', component: DepartmentsCreateComponent, canActivate: [AuthGuard, RolesGuard], data: {roles}},
+        {path: 'index', component: DepartmentsIndexComponent},
+        {path: 'update/:id', component: DepartmentsCreateComponent},
+        {path: 'create', component: DepartmentsCreateComponent},
       ]}
     ]
   }
