@@ -1,5 +1,10 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { AssignmentIndexComponent } from './pages/assignment/assignment-index/assignment-index.component';
+import { DisciplineTimeComponent } from './pages/assignment/discipline-time/discipline-time.component';
+import { TeacherPreferencesComponent } from './pages/assignment/teacher-preferences/teacher-preferences.component';
+import { TeacherRateComponent } from './pages/assignment/teacher-rate/teacher-rate.component';
+import { TimeManagerComponent } from './pages/assignment/time-manager/time-manager.component';
 import { DocsCreateComponent } from './pages/docs/docs-create/docs-create.component';
 import { HomePageComponent } from './pages/home-page/home-page.component';
 import { JournalsCreateComponent } from './pages/journals/journals-create/journals-create.component';
@@ -33,7 +38,15 @@ const routes: Routes = [
         {path: 'records/create/:id', component: RecordsCreateComponent, canActivate: []},
         {path: 'records/update/:id/record/:recordId', component: RecordsCreateComponent, canActivate: []},
       ]},
-      // {path: 'index', component: JournalsIndexComponent, canActivate: [], data: {roles}},
+      
+      {path: 'assignment', children: [
+        { path: '', redirectTo: '/journals/index', pathMatch: 'full' },
+        { path: 'index', component: AssignmentIndexComponent },
+        { path: 'teacher/preferences', component: TeacherPreferencesComponent },
+        { path: 'teacher/rate', component: TeacherRateComponent },
+        { path: 'discipline/time', component: DisciplineTimeComponent },
+        { path: 'time/manager', component: TimeManagerComponent },
+      ]},
 
       {path: 'reports/create', component: ReportsCreateComponent, canActivate: []},
       {path: 'docs/create', component: DocsCreateComponent, canActivate: []},

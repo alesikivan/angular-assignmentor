@@ -1,0 +1,32 @@
+<div class="input-group search">
+  <input type="search" placeholder="Поиск по преподавателю" class="form-control" />
+  <button type="button" class="btn btn-primary">
+    Найти
+  </button>
+</div>
+
+<button 
+(click)="save()"
+class="btn btn-success">Сохранить изменения</button>
+
+<table class="table">
+<thead>
+  <tr>
+    <th
+      *ngFor="let title of titles" 
+      scope="col">{{ title }}</th>
+  </tr>
+</thead>
+<tbody>
+  <tr *ngFor="let rate of rates">
+    <td>{{ rate.teacher.name }}</td>
+    <td>
+      <input 
+        [value]="rate.hours"
+        (input)="changeWeight($event, rate.teacher.id)"
+        type="text"
+        class="form-control number">
+    </td>
+  </tr>
+</tbody>
+</table>

@@ -1,0 +1,38 @@
+<div class="input-group search">
+  <input type="search" placeholder="Поиск по преподавателю" class="form-control" />
+  <button type="button" class="btn btn-primary">
+    Найти
+  </button>
+</div>
+
+<button 
+(click)="save()"
+class="btn btn-success">Сохранить изменения</button>
+
+<table class="table">
+<thead>
+  <tr>
+    <th
+      *ngFor="let title of titles" 
+      scope="col">{{ title }}</th>
+  </tr>
+</thead>
+<tbody>
+  <tr *ngFor="let discipline of disciplines">
+    <td>{{ discipline.teacher.name }}</td>
+    <td>{{ discipline.discipline.name }}</td>
+    <td>{{ discipline.semester.name }}</td>
+    <td>
+      <input 
+        [value]="discipline.hours"
+        (input)="changeHours(
+          $event, 
+          discipline.teacher.id, 
+          discipline.discipline.id, 
+          discipline.semester.id)"
+        type="text"
+        class="form-control number">
+    </td>
+  </tr>
+</tbody>
+</table>

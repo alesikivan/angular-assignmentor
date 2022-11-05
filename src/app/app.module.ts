@@ -28,6 +28,11 @@ import { CalendarModule } from 'primeng/calendar';
 import { ReportsCreateComponent } from './pages/reports/reports-create/reports-create.component';
 import { DocsCreateComponent } from './pages/docs/docs-create/docs-create.component';
 import { RecordsCreateComponent } from './pages/records/records-create/records-create.component';
+import { AssignmentIndexComponent } from './pages/assignment/assignment-index/assignment-index.component';
+import { TeacherPreferencesComponent } from './pages/assignment/teacher-preferences/teacher-preferences.component';
+import { TeacherRateComponent } from './pages/assignment/teacher-rate/teacher-rate.component';
+import { DisciplineTimeComponent } from './pages/assignment/discipline-time/discipline-time.component';
+import { TimeManagerComponent } from './pages/assignment/time-manager/time-manager.component';
 
 const INTERCEPTOR_PROVIDER: Provider = {
   provide: HTTP_INTERCEPTORS,
@@ -50,6 +55,11 @@ const INTERCEPTOR_PROVIDER: Provider = {
     ReportsCreateComponent,
     DocsCreateComponent,
     RecordsCreateComponent,
+    AssignmentIndexComponent,
+    TeacherPreferencesComponent,
+    TeacherRateComponent,
+    DisciplineTimeComponent,
+    TimeManagerComponent,
   ],
 
   imports: [

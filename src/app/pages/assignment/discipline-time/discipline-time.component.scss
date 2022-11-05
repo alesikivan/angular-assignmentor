@@ -1,0 +1,34 @@
+.search {
+  max-width: 600px;
+}
+
+.btn-success {
+  margin-top: 10px;
+}
+
+.table {
+  margin-top: 10px;
+
+  thead {
+    tr {
+      text-transform: capitalize;
+      th {
+        border-bottom: 1px solid #ccc;
+      }
+    }
+  }
+
+  tbody {
+    tr {
+      &:last-child {
+        td, th {
+          border: none;
+        }
+      }
+    }
+  }
+}
+
+.number {
+  max-width: 75px;
+}

@@ -1,0 +1,12 @@
+<div class="card">
+  <div class="card-header">
+    Распределение часов
+  </div>
+  
+  <ul class="list-group list-group-flush">
+    <a
+      *ngFor="let link of links"
+      [routerLink]="link.link" 
+      class="list-group-item">{{ link.title }}</a>
+  </ul>
+</div>

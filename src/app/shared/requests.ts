@@ -5,6 +5,18 @@ export const requests = {
   test: `${domen}/api/reports/test`,
   login: `${domen}/site/login`,
 
+  loadTeacherPreferences: `${domen}/teacher/preferences`,
+  saveTeacherPreferences: `${domen}/save/teacher/preferences`,
+
+  loadTeacherRates: `${domen}/load/teacher/rates`,
+  saveTeacherRates: `${domen}/save/teacher/rates`,
+
+  loadDisciplineTimes: `${domen}/load/discipline/times`,
+  saveDisciplineTimes: `${domen}/save/discipline/times`,
+
+  loadTeacherDisciplines: `${domen}/save/discipline/times`,
+  saveTeacherDisciplines: `${domen}/save/discipline/times`,
+
   educationalDoc: `${domen}/documentBuilder/site/educational-work`,
   scientificDoc: `${domen}/documentBuilder/site/scientific-work`,
   methodicalDoc: `${domen}/documentBuilder/site/methodical-work`,
