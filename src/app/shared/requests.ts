@@ -1,21 +1,22 @@
-const domen = 'http://localhost'
-
+const domen = 'http://45.143.139.214'
 export const requests = {
 
   test: `${domen}/api/reports/test`,
   login: `${domen}/site/login`,
 
-  loadTeacherPreferences: `${domen}/teacher/preferences`,
-  saveTeacherPreferences: `${domen}/save/teacher/preferences`,
+  loadTeacherPreferences: `${domen}/admin/teacher-preference/get-all`,
+  saveTeacherPreferences: `${domen}/admin/teacher-preference/set-all`,
 
-  loadTeacherRates: `${domen}/load/teacher/rates`,
-  saveTeacherRates: `${domen}/save/teacher/rates`,
+  loadTeacherRates: `${domen}/admin/teacher-rate/get-all`,
+  saveTeacherRates: `${domen}/admin/teacher-rate/set-all`,
 
-  loadDisciplineTimes: `${domen}/load/discipline/times`,
-  saveDisciplineTimes: `${domen}/save/discipline/times`,
+  loadDisciplineTimes: `${domen}/admin/discipline-time/get-all`,
+  saveDisciplineTimes: `${domen}/admin/discipline-time/set-all`,
 
-  loadTeacherDisciplines: `${domen}/save/discipline/times`,
-  saveTeacherDisciplines: `${domen}/save/discipline/times`,
+  loadTeacherDisciplines: `${domen}/admin/teacher-time-management/get-all`,
+  saveTeacherDisciplines: `${domen}/admin/teacher-time-management/set-all`,
+
+  genetate: `${domen}/admin/teacher-time-management/generate-new`,
 
   educationalDoc: `${domen}/documentBuilder/site/educational-work`,
   scientificDoc: `${domen}/documentBuilder/site/scientific-work`,

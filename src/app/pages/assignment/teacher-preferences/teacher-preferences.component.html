@@ -1,9 +1,9 @@
-<div class="input-group search">
+<!-- <div class="input-group search">
     <input type="search" placeholder="Поиск по преподавателю" class="form-control" />
     <button type="button" class="btn btn-primary">
       Найти
     </button>
-</div>
+</div> -->
 
 <button 
   (click)="save()"
@@ -19,11 +19,12 @@
   </thead>
   <tbody>
     <tr *ngFor="let preference of preferences">
-      <td>{{ preference.teacher.name }}</td>
+      <td>{{ preference.teacher.full_name }}</td>
       <td>{{ preference.discipline.name }}</td>
+      <td>{{ preference.semester.name }}</td>
       <td>
         <input 
-          [value]="preference.weight"
+          [value]="preference.importance_coefficient"
           (input)="changeWeight($event, preference.teacher.id, preference.discipline.id)"
           type="text"
           class="form-control number">

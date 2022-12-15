@@ -28,18 +28,7 @@ export class DisciplineTimeService {
 
   @UntilDestroyed() private _untilDestroyed: TUntilDestroyed
 
-  public disciplines: ReqDisciplineTime[] = [
-    {
-      "discipline": {"id": 1, "name": "some"},
-      "semester": {"id": 1, "name": "1 курс, 2-ой семетр"},
-      "hours": 730.5,
-    },		
-    {
-      "discipline": {"id": 1, "name": "some"},
-      "semester": {"id": 2, "name": "2 курс, 1-ый семетр"},
-      "hours": 730.5,
-    },	
-  ]
+  public disciplines: ReqDisciplineTime[] = []
 
   public titles: string[] = [
     'Семестр', 'Дисциплина', 'Часы'
@@ -49,16 +38,6 @@ export class DisciplineTimeService {
     private http: HttpClient
   ) {}
 
-  updHours(hours: number, semesterId: number, disciplineId: number): void {
-    this.disciplines = this.disciplines.map(discipline => {
-      if (discipline.discipline.id === disciplineId) 
-        if (discipline.semester.id === semesterId)
-        discipline.hours = Number(hours)
-
-      return discipline
-    })
-  }
-
   save() {
     const transformed = this.transformResponceData(this.disciplines)
     console.log(transformed)
@@ -67,7 +46,7 @@ export class DisciplineTimeService {
   transformResponceData(disciplines: ReqDisciplineTime[]): ResDisciplineTime[] {
     return disciplines.map(discipline => ({
       disciplineId: +discipline.discipline.id,
-      semesterId: +discipline.discipline.id,
+      semesterId: +discipline.semester.id,
       hours: +discipline.hours
     }))
   }

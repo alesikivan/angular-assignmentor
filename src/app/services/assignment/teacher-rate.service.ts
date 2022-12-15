@@ -6,7 +6,7 @@ import { requests } from 'src/app/shared/requests';
 export interface ReqTeacherRate {
   teacher: {
     id: number | string,
-    name: string,
+    full_name: string,
   },
   hours: number
 }
@@ -23,36 +23,13 @@ export class TeacherRateService {
 
   @UntilDestroyed() private _untilDestroyed: TUntilDestroyed
 
-  public rates: ReqTeacherRate[] = [
-    {
-      "teacher": {"id": 1, "name": "some"},
-      "hours": 730.5,
-    },	
-    {
-      "teacher": {"id": 2, "name": "some"},
-      "hours": 1000.0,
-    }
-  ]
+  public rates: ReqTeacherRate[] = []
 
   public titles: string[] = ['Преподаватель', 'Часы']
 
   constructor(
     private http: HttpClient
   ) {}
-
-  updRate(hours: number, teacher: number): void {
-    this.rates = this.rates.map(rate => {
-      if (rate.teacher.id === teacher) 
-          rate.hours = Number(hours)
-
-      return rate
-    })
-  }
-
-  save() {
-    const transformed = this.transformResponceData(this.rates)
-    console.log(transformed)
-  }
 
   transformResponceData(rates: ReqTeacherRate[]): ResTeacherRate[] {
     return rates.map(rate => ({

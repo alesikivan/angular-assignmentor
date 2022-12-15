@@ -6,7 +6,7 @@ import { requests } from 'src/app/shared/requests';
 export interface ReqTeacherDiscipline {
   teacher: {
     id: number | string,
-    name: string,
+    full_name: string,
   },
   discipline: {
     id: number | string,
@@ -16,7 +16,8 @@ export interface ReqTeacherDiscipline {
     id: number | string,
     name: string,
   },
-  hours: number
+  hours: number,
+  maxHours: number
 }
 
 export interface ResTeacherDiscipline {
@@ -32,45 +33,15 @@ export interface ResTeacherDiscipline {
 export class TimeManagerService {
   @UntilDestroyed() private _untilDestroyed: TUntilDestroyed
 
-  public disciplines: ReqTeacherDiscipline[] = [
-    {
-      "teacher": {"id": 1, "name": "some"},
-      "discipline": {"id": 1, "name": "some"},
-      "semester": {"id": 1, "name": "1 курс, 2-ой семетр"},
-      "hours": 730.5,
-    },		
-    {
-      "teacher": {"id": 1, "name": "some"},
-      "discipline": {"id": 2, "name": "some"},
-      "semester": {"id": 1, "name": "2 курс, 1-ый семетр"},
-      "hours": 0,
-    },	
-  ]
+  public disciplines: ReqTeacherDiscipline[] = []
 
   public titles: string[] = [
-    'Преподаватель', 'Дисциплина', 'Семестр', 'Часы'
+    'Преподаватель', 'Дисциплина', 'Семестр', 'Часы', 'Макс. часов'
   ]
 
   constructor(
     private http: HttpClient
   ) {}
-
-  updHours(hours: number, teacherId: number, disciplineId: number, semesterId: number): void {
-    this.disciplines = this.disciplines.map(discipline => {
-      
-      if (discipline.discipline.id === disciplineId) 
-        if (discipline.semester.id === semesterId)
-          if (discipline.teacher.id === teacherId)
-            discipline.hours = Number(hours)
-
-      return discipline
-    })
-  }
-
-  save() {
-    const transformed = this.transformResponceData(this.disciplines)
-    console.log(transformed)
-  }
 
   transformResponceData(disciplines: ReqTeacherDiscipline[]): ResTeacherDiscipline[] {
     return disciplines.map(discipline => ({
@@ -89,7 +60,13 @@ export class TimeManagerService {
 
   saveTeacherDisciplines(data: ResTeacherDiscipline[]) {
     return this.http
-      .post<ReqTeacherDiscipline[]>(`${requests.saveTeacherDisciplines}`, data)
+      .patch<ReqTeacherDiscipline[]>(`${requests.saveTeacherDisciplines}`, data)
+      .pipe(this._untilDestroyed())
+  }
+
+  generate() {
+    return this.http
+      .put(`${requests.genetate}`, {})
       .pipe(this._untilDestroyed())
   }
 }

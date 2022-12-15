@@ -6,19 +6,24 @@ import { requests } from 'src/app/shared/requests';
 export interface ReqTeacherPreference {
   teacher: {
     id: number | string,
-    name: string,
+    full_name: string,
   },
   discipline: {
     id: number | string,
     name: string,
   },
-  weight: number
+  importance_coefficient: number,
+  semester: {
+    id: number | string,
+    name: string,
+  },
 }
 
 export interface ResTeacherPreference {
   teacherId: number,
   disciplineId: number,
-  weight: number
+  importanceCoefficient: number,
+  semesterId: number
 }
 
 @Injectable({
@@ -29,47 +34,22 @@ export class TeacherPreferencesService {
 
   @UntilDestroyed() private _untilDestroyed: TUntilDestroyed
 
-  public preferences: ReqTeacherPreference[] = [
-    {
-      "teacher": {"id": 1, "name": "some"},
-      "discipline": {"id": 1, "name": "some"},
-      "weight": 100,
-    },	
-    {
-      "teacher": {"id": 2, "name": "some"},
-      "discipline": {"id": 1, "name": "some"},
-      "weight": 0,
-    }
-  ]
+  public preferences: ReqTeacherPreference[] = []
 
   public titles: string[] = [
-    'Преподаватель', 'Дисциплина', 'Вес'
+    'Преподаватель', 'Дисциплина', 'Семестр', 'Вес'
   ]
 
   constructor(
     private http: HttpClient
   ) {}
 
-  updWeigth(weight: number, teacher: number, discipline: number): void {
-    this.preferences = this.preferences.map(preference => {
-      if (preference.discipline.id === discipline) 
-        if (preference.teacher.id === teacher)
-          preference.weight = Number(weight)
-
-      return preference
-    })
-  }
-
-  save() {
-    const transformed = this.transformResponceData(this.preferences)
-    console.log(transformed)
-  }
-
-  transformResponceData(preferences: ReqTeacherPreference[]): ResTeacherPreference[] {
+  transformResponceData(preferences: ReqTeacherPreference[]): any[] {
     return preferences.map(preference => ({
       teacherId: +preference.teacher.id,
       disciplineId: +preference.discipline.id,
-      weight: +preference.weight
+      importanceCoefficient: +preference.importance_coefficient,
+      semesterId: +preference.semester.id,
     }))
   }
 
@@ -81,7 +61,7 @@ export class TeacherPreferencesService {
 
   saveTeacherPreferences(data: ResTeacherPreference[]) {
     return this.http
-      .post<ReqTeacherPreference[]>(`${requests.saveTeacherPreferences}`, data)
+      .patch<ReqTeacherPreference[]>(`${requests.saveTeacherPreferences}`, data)
       .pipe(this._untilDestroyed())
   }
 }

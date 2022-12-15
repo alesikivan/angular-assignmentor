@@ -1,9 +1,9 @@
-<div class="input-group search">
+<!-- <div class="input-group search">
   <input type="search" placeholder="Поиск по преподавателю" class="form-control" />
   <button type="button" class="btn btn-primary">
     Найти
   </button>
-</div>
+</div> -->
 
 <button 
 (click)="save()"
@@ -19,7 +19,7 @@ class="btn btn-success">Сохранить изменения</button>
 </thead>
 <tbody>
   <tr *ngFor="let rate of rates">
-    <td>{{ rate.teacher.name }}</td>
+    <td>{{ rate.teacher.full_name }}</td>
     <td>
       <input 
         [value]="rate.hours"

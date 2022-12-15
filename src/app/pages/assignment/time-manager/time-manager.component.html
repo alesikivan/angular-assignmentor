@@ -1,13 +1,21 @@
-<div class="input-group search">
+<!-- <div class="input-group search">
   <input type="search" placeholder="Поиск по преподавателю" class="form-control" />
   <button type="button" class="btn btn-primary">
     Найти
   </button>
-</div>
+</div> -->
 
-<button 
-(click)="save()"
-class="btn btn-success">Сохранить изменения</button>
+<div class="buttons">
+  <button 
+    [class.non-active]="loader"
+    (click)="loader ? undefined : save()"
+    class="btn btn-success">Сохранить изменения</button>
+  
+  <button 
+    [class.non-active]="loader"
+    (click)="loader ? undefined : genetate()"
+    class="btn btn-warning">Сгенерировать</button>
+</div>
 
 <table class="table">
 <thead>
@@ -19,20 +27,21 @@ class="btn btn-success">Сохранить изменения</button>
 </thead>
 <tbody>
   <tr *ngFor="let discipline of disciplines">
-    <td>{{ discipline.teacher.name }}</td>
+    <td>{{ discipline.teacher.full_name }}</td>
     <td>{{ discipline.discipline.name }}</td>
     <td>{{ discipline.semester.name }}</td>
     <td>
       <input 
-        [value]="discipline.hours"
-        (input)="changeHours(
-          $event, 
-          discipline.teacher.id, 
-          discipline.discipline.id, 
-          discipline.semester.id)"
+      [value]="discipline.hours"
+      (input)="changeHours(
+        $event, 
+        discipline.teacher.id, 
+        discipline.discipline.id, 
+        discipline.semester.id)"
         type="text"
         class="form-control number">
-    </td>
+      </td>
+    <td>{{ discipline.maxHours }}</td>
   </tr>
 </tbody>
 </table>
