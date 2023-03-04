@@ -19,7 +19,7 @@ class="btn btn-success">Сохранить изменения</button>
 </thead>
 <tbody>
   <tr *ngFor="let discipline of disciplines">
-    <td>{{ discipline.semester.name }}</td>
+    <td>Курс - {{ discipline.semester.course_name }}, Семестр - {{ discipline.semester.name }}</td>
     <td>{{ discipline.discipline.name }}</td>
     <td>
       <input 

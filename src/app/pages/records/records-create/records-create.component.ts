@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Journal } from 'src/app/admin/models/journal';
-import { JournalRecord } from 'src/app/admin/models/journalRecord';
 import { JournalsService } from 'src/app/services/journals.service';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { BreadcrumbsService } from 'src/app/shared/services/breadcrumbs.service';

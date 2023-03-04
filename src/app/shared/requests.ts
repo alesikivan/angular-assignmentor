@@ -1,6 +1,8 @@
-const domen = 'http://45.143.139.214'
-export const requests = {
+import { environment } from "src/environments/environment.prod"
 
+const domen = environment.domen
+
+export const requests = {
   test: `${domen}/api/reports/test`,
   login: `${domen}/site/login`,
 

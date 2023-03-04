@@ -33,6 +33,7 @@ import { TeacherPreferencesComponent } from './pages/assignment/teacher-preferen
 import { TeacherRateComponent } from './pages/assignment/teacher-rate/teacher-rate.component';
 import { DisciplineTimeComponent } from './pages/assignment/discipline-time/discipline-time.component';
 import { TimeManagerComponent } from './pages/assignment/time-manager/time-manager.component';
+import { TestComponent } from './pages/test/test.component';
 
 const INTERCEPTOR_PROVIDER: Provider = {
   provide: HTTP_INTERCEPTORS,
@@ -60,6 +61,7 @@ const INTERCEPTOR_PROVIDER: Provider = {
     TeacherRateComponent,
     DisciplineTimeComponent,
     TimeManagerComponent,
+    TestComponent,
   ],
 
   imports: [

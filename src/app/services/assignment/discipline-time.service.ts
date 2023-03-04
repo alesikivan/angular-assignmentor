@@ -11,6 +11,7 @@ export interface ReqDisciplineTime {
   semester: {
     id: number | string,
     name: string,
+    course_name: number
   },
   hours: number
 }
@@ -31,7 +32,7 @@ export class DisciplineTimeService {
   public disciplines: ReqDisciplineTime[] = []
 
   public titles: string[] = [
-    'Семестр', 'Дисциплина', 'Часы'
+    'Курс, Семестр', 'Дисциплина', 'Часы'
   ]
 
   constructor(

@@ -54,15 +54,7 @@ export class DisciplineTimeComponent implements OnInit {
     this.service.loadReqDisciplineTimes()
       .subscribe((responce: any) => {
         const { data } = responce
-        // console.log(data)
-
-        data.forEach((element: any) => {
-          console.log({
-            discipline: element.discipline.id,
-            semester: element.semester.id,
-            hours: element.hours,
-          })
-        });
+        console.log(data)
 
         this.disciplines = data
       })
