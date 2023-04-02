@@ -30,17 +30,19 @@ export class TeacherPreferencesComponent implements OnInit {
     this.loadTeacherPreferences()
   }
 
-  changeWeight(event: Event, teacher: number | string, discipline: number | string): void {
+  changeWeight(event: Event, teacher: number | string, discipline: number | string, semester: number | string): void {
     const weight = (event.target as HTMLFormElement).value
 
-    this.updWeigth( +weight, +teacher, +discipline )
+    this.updWeigth( +weight, +teacher, +discipline, +semester )
   }
 
-  updWeigth(weight: number, teacher: number, discipline: number): void {
+  updWeigth(weight: number, teacher: number, discipline: number, semester: number): void {
     this.preferences = this.preferences.map(preference => {
-      if (preference.discipline.id === discipline) 
-        if (preference.teacher.id === teacher)
-          preference.importance_coefficient = Number(weight)
+      if (preference.discipline.id === discipline 
+          && preference.teacher.id === teacher
+          && preference.semester.id === semester) {
+        preference.importance_coefficient = Number(weight)
+      }
 
       return preference
     })

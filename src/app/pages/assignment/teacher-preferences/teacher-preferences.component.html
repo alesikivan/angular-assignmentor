@@ -50,7 +50,7 @@
         <td>
           <input 
             [value]="preference.importance_coefficient"
-            (input)="changeWeight($event, preference.teacher.id, preference.discipline.id)"
+            (input)="changeWeight($event, preference.teacher.id, preference.discipline.id, preference.semester.id)"
             type="text"
             class="form-control number">
         </td>
