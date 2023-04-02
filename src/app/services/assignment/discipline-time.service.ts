@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { TUntilDestroyed, UntilDestroyed } from 'src/app/shared/decorators/until-destroyed';
 import { requests } from 'src/app/shared/requests';
@@ -32,7 +32,7 @@ export class DisciplineTimeService {
   public disciplines: ReqDisciplineTime[] = []
 
   public titles: string[] = [
-    'Курс, Семестр', 'Дисциплина', 'Часы'
+    'Дисциплина', 'Курс, Семестр', 'Часы'
   ]
 
   constructor(
@@ -52,9 +52,13 @@ export class DisciplineTimeService {
     }))
   }
 
-  loadReqDisciplineTimes() {
+  loadReqDisciplineTimes(page: number, disciplineFilter: string) {
+    const params = new HttpParams()
+      .set('page', page)
+      .set('disciplineName', disciplineFilter.trim())
+
     return this.http
-      .get<ReqDisciplineTime[]>(`${requests.loadDisciplineTimes}`, {})
+      .get<ReqDisciplineTime[]>(`${requests.loadDisciplineTimes}`, { params })
       .pipe(this._untilDestroyed())
   }
 

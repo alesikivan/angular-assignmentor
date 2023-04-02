@@ -9,25 +9,47 @@
 (click)="save()"
 class="btn btn-success">Сохранить изменения</button>
 
-<table class="table">
-<thead>
-  <tr>
-    <th
-      *ngFor="let title of titles" 
-      scope="col">{{ title }}</th>
-  </tr>
-</thead>
-<tbody>
-  <tr *ngFor="let discipline of disciplines">
-    <td>Курс - {{ discipline.semester.course_name }}, Семестр - {{ discipline.semester.name }}</td>
-    <td>{{ discipline.discipline.name }}</td>
-    <td>
-      <input 
-        [value]="discipline.hours"
-        (input)="changeHours($event, discipline.semester.id, discipline.discipline.id)"
-        type="text"
-        class="form-control number">
-    </td>
-  </tr>
-</tbody>
-</table>
+<p-table [value]="disciplines" [lazy]="true" (onLazyLoad)="loadReqDisciplineTimes()">
+  <ng-template pTemplate="header">
+    <tr>
+      <th
+        *ngFor="let title of titles" 
+        scope="col">{{ title }}</th>
+    </tr>
+    <tr>    
+      <th>
+        <p-columnFilter 
+          placeholder="Поиск по дисциплине" 
+          [showClearButton]="false" 
+          (input)="filter('discipline', $event)" 
+          [showMenu]="false" 
+          type="text" 
+          field="discipline">
+        </p-columnFilter>
+      </th>
+      <th>
+      </th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-discipline>
+    <tr>
+      <tr>
+        <td>{{ discipline.discipline.name }}</td>
+        <td>Курс - {{ discipline.semester.course_name }}, Семестр - {{ discipline.semester.name }}</td>
+        <td>
+          <input 
+            [value]="discipline.hours"
+            (input)="changeHours($event, discipline.semester.id, discipline.discipline.id)"
+            type="text"
+            class="form-control number">
+        </td>
+      </tr>
+  </ng-template>
+</p-table>
+
+<p-paginator
+  *ngIf="disciplines.length > 0"
+  [totalRecords]="totalPages" 
+  [rows]="rows" 
+  (onPageChange)="onPage($event)">
+</p-paginator>

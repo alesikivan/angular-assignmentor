@@ -13,6 +13,15 @@ export class TeacherRateComponent implements OnInit {
   public titles: string[] = this.service.titles
   public rates: ReqTeacherRate[] = []
 
+  public page = 1
+  public totalPages = 0
+  public rows = 20
+  public teacherFilter = ''
+  public disciplineFilter = ''
+
+  public typingDelay = 500
+  public typingTimer: any = undefined
+
   constructor(
     private breadcrumbs: BreadcrumbsService,
     private service: TeacherRateService,
@@ -48,12 +57,35 @@ export class TeacherRateComponent implements OnInit {
   }
 
   loadTeacherRates() {
-    this.service.loadTeacherRates()
+    this.service.loadTeacherRates(this.page, this.teacherFilter)
       .subscribe((responce: any) => {
-        const { data } = responce
+        const { data, totalPages } = responce
+
+        this.totalPages = totalPages * this.rows
 
         this.rates = data
       })
+  }
+
+  onPage(event: any) {
+    const { page } = event
+    this.page = page + 1
+    this.loadTeacherRates()
+  }
+
+  filter(column: string, event: any) {
+    const { value } = event.target
+
+    switch (column) {
+      case 'teacher':
+        this.teacherFilter = value
+        break
+      
+      default: break
+    }
+
+    clearTimeout(this.typingTimer)
+    this.typingTimer = setTimeout(this.loadTeacherRates.bind(this), this.typingDelay)
   }
 
   ngOnInit(): void {

@@ -58,7 +58,6 @@ export class TimeManagerService {
       .set('teacherName', teacherFilter.trim())
       .set('disciplineName', disciplineFilter.trim())
 
-      // .get<ReqTeacherDiscipline[]>(`${requests.loadTeacherDisciplines}?page=${page}&teacherName=${teacherFilter.trim()}&disciplineName=${disciplineFilter.trim()}`)
     return this.http
       .get<ReqTeacherDiscipline[]>(`${requests.loadTeacherDisciplines}`, { params })
       .pipe(this._untilDestroyed())

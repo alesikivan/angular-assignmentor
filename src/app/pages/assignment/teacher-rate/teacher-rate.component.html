@@ -9,24 +9,54 @@
 (click)="save()"
 class="btn btn-success">Сохранить изменения</button>
 
-<table class="table">
-<thead>
-  <tr>
-    <th
-      *ngFor="let title of titles" 
-      scope="col">{{ title }}</th>
-  </tr>
-</thead>
-<tbody>
-  <tr *ngFor="let rate of rates">
-    <td>{{ rate.teacher.full_name }}</td>
-    <td>
-      <input 
-        [value]="rate.hours"
-        (input)="changeWeight($event, rate.teacher.id)"
-        type="text"
-        class="form-control number">
-    </td>
-  </tr>
-</tbody>
-</table>
+<p-table [value]="rates" [lazy]="true" (onLazyLoad)="loadTeacherRates()">
+  <ng-template pTemplate="header">
+    <tr>
+      <th
+        *ngFor="let title of titles" 
+        scope="col">{{ title }}</th>
+    </tr>
+    <tr>
+      <th>
+        <p-columnFilter 
+          placeholder="Поиск по преподавателю" 
+          [showClearButton]="false" 
+          (input)="filter('teacher', $event)" 
+          [showMenu]="false" 
+          type="text" 
+          field="teacher">
+        </p-columnFilter>
+      </th>
+      <th>
+        <p-columnFilter 
+          placeholder="Поиск по дисциплине" 
+          [showClearButton]="false" 
+          (input)="filter('discipline', $event)" 
+          [showMenu]="false" 
+          type="text" 
+          field="discipline">
+        </p-columnFilter>
+      </th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-rate>
+    <tr>
+      <tr>
+        <td>{{ rate.teacher.full_name }}</td>
+        <td>
+          <input 
+            [value]="rate.hours"
+            (input)="changeWeight($event, rate.teacher.id)"
+            type="text"
+            class="form-control number">
+        </td>
+      </tr>
+  </ng-template>
+</p-table>
+
+<p-paginator
+  *ngIf="rates.length > 0"
+  [totalRecords]="totalPages" 
+  [rows]="rows" 
+  (onPageChange)="onPage($event)">
+</p-paginator>

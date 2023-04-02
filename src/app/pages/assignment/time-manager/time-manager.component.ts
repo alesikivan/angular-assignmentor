@@ -21,6 +21,9 @@ export class TimeManagerComponent implements OnInit {
   public teacherFilter = ''
   public disciplineFilter = ''
 
+  public typingDelay = 500
+  public typingTimer: any = undefined
+
   constructor(
     private breadcrumbs: BreadcrumbsService,
     private service: TimeManagerService,
@@ -108,7 +111,8 @@ export class TimeManagerComponent implements OnInit {
       default: break
     }
 
-    this.loadTeacherDisciplines()
+    clearTimeout(this.typingTimer)
+    this.typingTimer = setTimeout(this.loadTeacherDisciplines.bind(this), this.typingDelay)
   }
 
   ngOnInit(): void {

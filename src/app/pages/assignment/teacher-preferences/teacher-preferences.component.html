@@ -9,26 +9,58 @@
   (click)="save()"
   class="btn btn-success">Сохранить изменения</button>
 
-<table class="table">
-  <thead>
+<p-table [value]="preferences" [lazy]="true" (onLazyLoad)="loadTeacherPreferences()">
+  <ng-template pTemplate="header">
     <tr>
       <th
         *ngFor="let title of titles" 
         scope="col">{{ title }}</th>
     </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let preference of preferences">
-      <td>{{ preference.teacher.full_name }}</td>
-      <td>{{ preference.discipline.name }}</td>
-      <td>{{ preference.semester.name }}</td>
-      <td>
-        <input 
-          [value]="preference.importance_coefficient"
-          (input)="changeWeight($event, preference.teacher.id, preference.discipline.id)"
-          type="text"
-          class="form-control number">
-      </td>
+    <tr>
+      <th>
+        <p-columnFilter 
+          placeholder="Поиск по преподавателю" 
+          [showClearButton]="false" 
+          (input)="filter('teacher', $event)" 
+          [showMenu]="false" 
+          type="text" 
+          field="teacher">
+        </p-columnFilter>
+      </th>
+      <th>
+        <p-columnFilter 
+          placeholder="Поиск по дисциплине" 
+          [showClearButton]="false" 
+          (input)="filter('discipline', $event)" 
+          [showMenu]="false" 
+          type="text" 
+          field="discipline">
+        </p-columnFilter>
+      </th>
+      <th>
+      </th>
     </tr>
-  </tbody>
-</table>
+  </ng-template>
+  <ng-template pTemplate="body" let-preference>
+    <tr>
+      <tr>
+        <td>{{ preference.teacher.full_name }}</td>
+        <td>{{ preference.discipline.name }}</td>
+        <td>{{ preference.semester.name }}</td>
+        <td>
+          <input 
+            [value]="preference.importance_coefficient"
+            (input)="changeWeight($event, preference.teacher.id, preference.discipline.id)"
+            type="text"
+            class="form-control number">
+        </td>
+      </tr>
+  </ng-template>
+</p-table>
+
+<p-paginator
+  *ngIf="preferences.length > 0"
+  [totalRecords]="totalPages" 
+  [rows]="rows" 
+  (onPageChange)="onPage($event)">
+</p-paginator>

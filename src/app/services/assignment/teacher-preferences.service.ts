@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { TUntilDestroyed, UntilDestroyed } from 'src/app/shared/decorators/until-destroyed';
 import { requests } from 'src/app/shared/requests';
@@ -53,9 +53,14 @@ export class TeacherPreferencesService {
     }))
   }
 
-  loadTeacherPreferences() {
+  loadTeacherPreferences(page: number, teacherFilter: string, disciplineFilter: string) {
+    const params = new HttpParams()
+      .set('page', page)
+      .set('teacherName', teacherFilter.trim())
+      .set('disciplineName', disciplineFilter.trim())
+
     return this.http
-      .get<ReqTeacherPreference[]>(`${requests.loadTeacherPreferences}`, {})
+      .get<ReqTeacherPreference[]>(`${requests.loadTeacherPreferences}`, { params })
       .pipe(this._untilDestroyed())
   }
 
