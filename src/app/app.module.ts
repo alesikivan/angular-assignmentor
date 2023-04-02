@@ -25,6 +25,8 @@ import { JournalsLayoutComponent } from './pages/journals/journals-layout/journa
 import { JournalsMenuComponent } from './pages/journals/components/journals-menu/journals-menu.component';
 
 import { CalendarModule } from 'primeng/calendar';
+import { TableModule } from 'primeng/table';
+import { PaginatorModule } from 'primeng/paginator';
 import { ReportsCreateComponent } from './pages/reports/reports-create/reports-create.component';
 import { DocsCreateComponent } from './pages/docs/docs-create/docs-create.component';
 import { RecordsCreateComponent } from './pages/records/records-create/records-create.component';
@@ -69,7 +71,9 @@ const INTERCEPTOR_PROVIDER: Provider = {
     SharedModule,
     ReactiveFormsModule,
     CalendarModule,
-    FormsModule
+    TableModule,
+    FormsModule,
+    PaginatorModule
   ],
   providers: [
     AuthService,

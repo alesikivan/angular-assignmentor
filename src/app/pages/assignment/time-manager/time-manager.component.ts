@@ -15,12 +15,18 @@ export class TimeManagerComponent implements OnInit {
 
   public loader = false
 
+  public page = 1
+  public totalPages = 0
+  public rows = 20
+  public teacherFilter = ''
+  public disciplineFilter = ''
+
   constructor(
     private breadcrumbs: BreadcrumbsService,
     private service: TimeManagerService,
     private notifications: NotificationsService,
   ) {
-    this.loadTeacherDisciplines()
+    
   }
 
   changeHours(event: Event, teacher: number | string, discipline: number | string, semester: number | string): void {
@@ -53,9 +59,11 @@ export class TimeManagerComponent implements OnInit {
   }
 
   loadTeacherDisciplines() {
-    this.service.loadTeacherDisciplines()
+    this.service.loadTeacherDisciplines(this.page, this.teacherFilter, this.disciplineFilter)
       .subscribe((responce: any) => {
-        const { data } = responce
+        const { data, totalPages } = responce
+
+        this.totalPages = totalPages * this.rows
 
         this.disciplines = data
       })
@@ -77,6 +85,30 @@ export class TimeManagerComponent implements OnInit {
         () => this.loader = false,
         () => this.loader = false)
     }
+  }
+
+  onPage(event: any) {
+    const { page } = event
+    this.page = page + 1
+    this.loadTeacherDisciplines()
+  }
+
+  filter(column: string, event: any) {
+    const { value } = event.target
+
+    switch (column) {
+      case 'discipline':
+        this.disciplineFilter = value
+        break
+
+      case 'teacher':
+        this.teacherFilter = value
+        break
+      
+      default: break
+    }
+
+    this.loadTeacherDisciplines()
   }
 
   ngOnInit(): void {

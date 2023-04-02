@@ -17,31 +17,63 @@
     class="btn btn-warning">Сгенерировать</button>
 </div>
 
-<table class="table">
-<thead>
-  <tr>
-    <th
-      *ngFor="let title of titles" 
-      scope="col">{{ title }}</th>
-  </tr>
-</thead>
-<tbody>
-  <tr *ngFor="let discipline of disciplines">
-    <td>{{ discipline.teacher.full_name }}</td>
-    <td>{{ discipline.discipline.name }}</td>
-    <td>{{ discipline.semester.name }}</td>
-    <td>
-      <input 
-      [value]="discipline.hours"
-      (input)="changeHours(
-        $event, 
-        discipline.teacher.id, 
-        discipline.discipline.id, 
-        discipline.semester.id)"
-        type="text"
-        class="form-control number">
-      </td>
-    <td>{{ discipline.maxHours }}</td>
-  </tr>
-</tbody>
-</table>
+<p-table [value]="disciplines" [lazy]="true" (onLazyLoad)="loadTeacherDisciplines()">
+  <ng-template pTemplate="header">
+    <tr>
+      <th
+        *ngFor="let title of titles" 
+        scope="col">{{ title }}</th>
+    </tr>
+    <tr>
+      <th>
+        <p-columnFilter 
+          placeholder="Поиск по преподавателю" 
+          [showClearButton]="false" 
+          (input)="filter('teacher', $event)" 
+          [showMenu]="false" 
+          type="text" 
+          field="teacher">
+        </p-columnFilter>
+      </th>
+      <th>
+        <p-columnFilter 
+          placeholder="Поиск по дисциплине" 
+          [showClearButton]="false" 
+          (input)="filter('discipline', $event)" 
+          [showMenu]="false" 
+          type="text" 
+          field="discipline">
+        </p-columnFilter>
+      </th>
+      <th>
+      </th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-discipline>
+    <tr>
+      <tr>
+        <td>{{ discipline.teacher.full_name }}</td>
+        <td>{{ discipline.discipline.name }}</td>
+        <td>{{ discipline.semester.name }}</td>
+        <td>
+          <input 
+          [value]="discipline.hours"
+          (input)="changeHours(
+            $event, 
+            discipline.teacher.id, 
+            discipline.discipline.id, 
+            discipline.semester.id)"
+            type="text"
+            class="form-control number">
+          </td>
+        <td>{{ discipline.maxHours }}</td>
+      </tr>
+  </ng-template>
+</p-table>
+
+<p-paginator
+  *ngIf="disciplines.length > 0"
+  [totalRecords]="totalPages" 
+  [rows]="rows" 
+  (onPageChange)="onPage($event)">
+</p-paginator>

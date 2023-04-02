@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { TUntilDestroyed, UntilDestroyed } from 'src/app/shared/decorators/until-destroyed';
 import { requests } from 'src/app/shared/requests';
@@ -52,9 +52,15 @@ export class TimeManagerService {
     }))
   }
 
-  loadTeacherDisciplines() {
+  loadTeacherDisciplines(page: number, teacherFilter: string, disciplineFilter: string) {
+    const params = new HttpParams()
+      .set('page', page)
+      .set('teacherName', teacherFilter.trim())
+      .set('disciplineName', disciplineFilter.trim())
+
+      // .get<ReqTeacherDiscipline[]>(`${requests.loadTeacherDisciplines}?page=${page}&teacherName=${teacherFilter.trim()}&disciplineName=${disciplineFilter.trim()}`)
     return this.http
-      .get<ReqTeacherDiscipline[]>(`${requests.loadTeacherDisciplines}`, {})
+      .get<ReqTeacherDiscipline[]>(`${requests.loadTeacherDisciplines}`, { params })
       .pipe(this._untilDestroyed())
   }
 
